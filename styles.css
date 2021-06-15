@@ -1,0 +1,76 @@
+body, body * {
+  all: unset;
+}
+
+
+:root {
+  --bg-clr: #333;
+  --fg-clr: #ccc;
+  --fg-darker: #999;
+  --fg-lighter: #eee;
+  --fg-cyan: #3cc;
+  --fg-magenta: #c3c;
+  --fg-yellow: #cc3;
+  --fg-red: #c66;
+  --fg-green: #6c6;
+  --fg-blue: #66c;
+}
+
+.ns {
+  -webkit-user-select: none;      
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+a {
+  cursor: pointer;
+}
+
+body {
+  background-color: var(--bg-clr);
+  color: var(--fg-clr);
+}
+
+.titlecard {
+  display: block;
+  text-align: center;
+  font-family: 'Grandstander', sans-serif;
+  font-weight: bold;
+  font-size: 10rem;
+}
+
+.subtitle {
+  display: block;
+  text-align: center;
+  font-family: 'Grandstander', sans-serif;
+  font-weight: bold;
+  font-size: 3rem;
+}
+
+.versionnumber {
+  color: var(--fg-lighter);
+  font-style: italic;
+}
+
+.versionnumber .num {
+  color: var(--fg-cyan);
+  font-style: normal;
+}
+
+.seperator {
+  color: var(--fg-lighter);
+}
+
+.versionname {
+  color: var(--fg-darker);
+}
+
+.changelog a {
+  color: var(--fg-blue);
+}
+
+.changelog a:hover,
+.changelog a:focus {
+  text-decoration: underline 0.4rem;
+}
