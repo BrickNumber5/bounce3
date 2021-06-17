@@ -175,3 +175,39 @@ body {
   height: 100%;
   vertical-align: middle;
 }
+
+.leveltoolbar {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+}
+
+.icon {
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon.play     { background-image: url(assets/icons/play-solid.svg);          }
+.icon.edit     { background-image: url(assets/icons/edit-solid.svg);          }
+.icon.download { background-image: url(assets/icons/file-download-solid.svg); }
+.icon.delete   { background-image: url(assets/icons/trash-alt-solid.svg);     }
+
+.icon:not(:hover):not(:focus) {
+  filter: grayscale(1) brightness(10000%) brightness(75%);
+}
+
+.icon:hover, .icon:focus {
+  animation: wiggle 0.75s infinite;
+}
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   25% { transform: rotate(5deg); }
+   75% { transform: rotate(-5deg); }
+  100% { transform: rotate(0deg); }
+}
