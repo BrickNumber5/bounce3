@@ -1,0 +1,1 @@
+The icons in this folder ( Every file other than this one ) is a free icon from https://fontawesome.com liscensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). The icon files are largely unmodified except that each icon has had its "currentColor" replaced with some specific hex value
