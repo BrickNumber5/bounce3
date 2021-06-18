@@ -100,6 +100,7 @@ body {
 }
 
 .levelpack, .levelfullwidth {
+  position: relative;
   display: block;
   margin-top: 1.5rem;
   padding: 1.5rem;
@@ -156,7 +157,7 @@ body {
   cursor: pointer;
 }
 
-.completed {
+.levelsmall.completed {
   background-color: var(--fg-clr);
   color: white;
   border-bottom: 0.75rem solid var(--bg-green);
@@ -182,7 +183,7 @@ body {
   margin-top: 1rem;
 }
 
-.icon {
+.iconbutton {
   display: inline-block;
   width: 3.5rem;
   height: 3.5rem;
@@ -192,16 +193,16 @@ body {
   background-position: center;
 }
 
-.icon.play     { background-image: url(assets/icons/play-solid.svg);          }
-.icon.edit     { background-image: url(assets/icons/edit-solid.svg);          }
-.icon.download { background-image: url(assets/icons/file-download-solid.svg); }
-.icon.delete   { background-image: url(assets/icons/trash-alt-solid.svg);     }
+.iconbutton.play     { background-image: url(assets/icons/play-solid.svg);          }
+.iconbutton.edit     { background-image: url(assets/icons/edit-solid.svg);          }
+.iconbutton.download { background-image: url(assets/icons/file-download-solid.svg); }
+.iconbutton.delete   { background-image: url(assets/icons/trash-alt-solid.svg);     }
 
-.icon:not(:hover):not(:focus) {
+.iconbutton:not(:hover):not(:focus) {
   filter: grayscale(1) brightness(10000%) brightness(75%);
 }
 
-.icon:hover, .icon:focus {
+.iconbutton:hover, .iconbutton:focus {
   animation: wiggle 0.75s infinite;
 }
 
@@ -210,4 +211,25 @@ body {
    25% { transform: rotate(5deg); }
    75% { transform: rotate(-5deg); }
   100% { transform: rotate(0deg); }
+}
+
+.flag {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-image: url(assets/icons/flag-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transform: rotate(10deg);
+  filter: grayscale(1);
+  opacity: 25%;
+}
+
+.flag.completed {
+  filter: none;
+  opacity: 100%;
 }
