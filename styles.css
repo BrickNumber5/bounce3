@@ -88,6 +88,18 @@ body {
 .levels {
   flex: 1 1 40rem;
   width: 0;
+  max-height: 50vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.levels::-webkit-scrollbar {
+  width: 1rem;
+}
+
+.levels::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background-color: var(--fg-darker);
 }
 
 .typename {
@@ -197,6 +209,9 @@ body {
 .iconbutton.edit     { background-image: url(assets/icons/edit-solid.svg);          }
 .iconbutton.download { background-image: url(assets/icons/file-download-solid.svg); }
 .iconbutton.delete   { background-image: url(assets/icons/trash-alt-solid.svg);     }
+.iconbutton.new      { background-image: url(assets/icons/plus-square-solid.svg);   }
+.iconbutton.upload   { background-image: url(assets/icons/file-upload-solid.svg);   }
+.iconbutton.archive  { background-image: url(assets/icons/archive-solid.svg);       }
 
 .iconbutton:not(:hover):not(:focus) {
   filter: grayscale(1) brightness(10000%) brightness(75%);
@@ -232,4 +247,48 @@ body {
 .flag.completed {
   filter: none;
   opacity: 100%;
+}
+
+.experimental {
+  position: relative;
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-image: url(assets/icons/flask-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle
+}
+
+.experimental:hover::after {
+  position: absolute;
+  left: 50%;
+  top: -6.5rem;
+  transform: translate(-50%,0);
+  content: 'This version of Bounce is experimental and may be unstable';
+  display: inline-block;
+  width: 15rem;
+  height: 3rem;
+  padding: 1rem;
+  background-color: var(--bg-lighter);
+  font-size: 1rem;
+  border-radius: 1rem;
+}
+
+.experimental:hover:before {
+  position: absolute;
+  left: 50%;
+  top: -2.5rem;
+  content: '';
+  background-color: var(--bg-lighter);
+  width: 2rem;
+  height: 2rem;
+  transform: translate(-50%) rotate(45deg);
+}
+
+.levelstoolbar {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
 }
