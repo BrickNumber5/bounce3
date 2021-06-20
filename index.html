@@ -1,194 +1,40 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Bounce v3.0.0alpha005</title>
+    <title>Bounce v3.0.0alpha006</title>
     <link rel="stylesheet" href="styles.css"></link>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet">
+    <script src="scripts/util.js"></script>
+    <script src="scripts/uimanager.js"></script>
   </head>
   <body>
-    <h1 class="titlecard">BOUNCE</h1>
-    <h2 class="subtitle">
-      <span class="versionnumber">v<span class="num">3</span>.<span class="num">0</span>.<span class="num">0</span>alpha<span class="num">005</span></span>
-      <span class="seperator"> - </span>
-      <span class="versionname">Nonpublic&nbsp;Alpha&nbsp;Build</span>
-      <span class="seperator"> </span>
-      <span class="changelog">(<a target="_blank" href="about:blank">changelog</a>)</span>
-      <div class="experimental"></div>
-    </h2>
-    <div class="leveltypescontainer">
-      <div class="levels">
-        <h3 class="typename">Builtin Levels</h3>
-        <div class="levelpack">
-          <h4 class="leveltitle">Tutorial</h3>
-          <div class="levelsmall completed" tabindex="0">1</div>
-          <div class="levelsmall completed" tabindex="0">2</div>
-          <div class="levelsmall completed" tabindex="0">3</div>
-          <div class="levelsmall"  tabindex="0" tabindex="0">4</div>
-          <div class="levelsmall"  tabindex="0" tabindex="0">5</div>
-          <div class="flag completed"></div>
+    <div class="titlescreen">
+      <h1 class="titlecard">BOUNCE</h1>
+      <h2 class="subtitle">
+        <span class="versionnumber">v<span class="num">3</span>.<span class="num">0</span>.<span class="num">0</span>alpha<span class="num">006</span></span>
+        <span class="seperator"> - </span>
+        <span class="versionname">Nonpublic&nbsp;Alpha&nbsp;Build</span>
+        <span class="seperator"> </span>
+        <span class="changelog">(<a target="_blank" href="about:blank">changelog</a>)</span>
+        <div class="experimental"></div>
+      </h2>
+      <div class="leveltypescontainer">
+        <div class="levels" id="builtinlevels">
+          <h3 class="typename">Builtin Levels</h3>
         </div>
-        <div class="levelpack">
-          <h4 class="leveltitle">Main Campaign</h3>
-          <div class="levelsmall completed" tabindex="0">1</div>
-          <div class="levelsmall completed" tabindex="0">2</div>
-          <div class="levelsmall completed" tabindex="0">3</div>
-          <div class="levelsmall completed" tabindex="0">4</div>
-          <div class="levelsmall completed" tabindex="0">5</div>
-          <div class="levelsmall completed" tabindex="0">6</div>
-          <div class="levelsmall completed" tabindex="0">7</div>
-          <div class="levelsmall completed" tabindex="0">8</div>
-          <div class="levelsmall completed" tabindex="0">9</div>
-          <div class="levelsmall" tabindex="0">10</div>
-          <div class="levelsmall" tabindex="0">11</div>
-          <div class="levelsmall" tabindex="0">12</div>
-          <div class="levelsmall" tabindex="0">13</div>
-          <div class="levelsmall" tabindex="0">14</div>
-          <div class="levelsmall" tabindex="0">15</div>
-          <div class="levelsmall completed" tabindex="0">16</div>
-          <div class="levelsmall" tabindex="0">17</div>
-          <div class="levelsmall" tabindex="0">18</div>
-          <div class="levelsmall" tabindex="0">19</div>
-          <div class="levelsmall" tabindex="0">20</div>
-          <div class="levelsmall" tabindex="0">21</div>
-          <div class="levelsmall" tabindex="0">22</div>
-          <div class="levelsmall" tabindex="0">23</div>
-          <div class="levelsmall" tabindex="0">24</div>
-          <div class="levelsmall" tabindex="0">25</div>
-          <div class="levelsmall completed" tabindex="0">26</div>
-          <div class="levelsmall completed" tabindex="0">27</div>
-          <div class="levelsmall completed" tabindex="0">28</div>
-          <div class="levelsmall" tabindex="0">29</div>
-          <div class="levelsmall" tabindex="0">30</div>
-          <div class="levelsmall completed" tabindex="0">31</div>
-          <div class="levelsmall" tabindex="0">32</div>
-          <div class="flag"></div>
+        <div class="levels" id="customlevels">
+          <h3 class="typename">Custom Levels</h3>
+          <div class="levelstoolbar">
+            <button class="iconbutton new"></button>
+            <button class="iconbutton upload"></button>
+            <button class="iconbutton archive"></button>
+          </div>
         </div>
       </div>
-      <div class="levels">
-        <h3 class="typename">Custom Levels</h3>
-        <div class="levelpack">
-          <h4 class="leveltitle">Example Level Pack</h3>
-          <div class="levelsmall completed" tabindex="0">1</div>
-          <div class="levelsmall completed" tabindex="0">2</div>
-          <div class="levelsmall completed" tabindex="0">3</div>
-          <div class="levelsmall completed" tabindex="0">4</div>
-          <div class="levelsmall completed" tabindex="0">5</div>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag completed"></div>
-        </div>
-        <div class="levelpack">
-          <h4 class="leveltitle">Pack w/ Description</h3>
-          <span class="leveldisc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut magna quis velit consectetur ullamcorper ac eu orci. Morbi eu nisl sit amet nisl ornare luctus sed sit amet dui. Duis at dui nulla. Quisque auctor faucibus orci, sit amet scelerisque est.
-          </span>
-          <div class="levelsmall completed" tabindex="0">1</div>
-          <div class="levelsmall completed" tabindex="0">2</div>
-          <div class="levelsmall" tabindex="0">3</div>
-          <div class="levelsmall completed" tabindex="0">4</div>
-          <div class="levelsmall" tabindex="0">5</div>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag"></div>
-        </div>
-        <div class="levelfullwidth">
-          <h4 class="leveltitle">A Level</h3>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag completed"></div>
-        </div>
-        <div class="levelpack">
-          <h4 class="leveltitle">Pack w/ Author</h3>
-          <span class="levelauthor">Somebody</span>
-          <div class="levelsmall completed" tabindex="0">1</div>
-          <div class="levelsmall" tabindex="0">2</div>
-          <div class="levelsmall" tabindex="0">3</div>
-          <div class="levelsmall" tabindex="0">4</div>
-          <div class="levelsmall" tabindex="0">5</div>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag completed"></div>
-        </div>
-        <div class="levelfullwidth">
-          <h4 class="leveltitle">A Level w/ Description</h3>
-          <span class="leveldisc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut magna quis velit consectetur ullamcorper ac eu orci. Morbi eu nisl sit amet nisl ornare luctus sed sit amet dui. Duis at dui nulla. Quisque auctor faucibus orci, sit amet scelerisque est.
-          </span>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag"></div>
-        </div>
-        <div class="levelpack">
-          <h4 class="leveltitle">Pack w/ Description & Author</h3>
-          <span class="leveldisc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut magna quis velit consectetur ullamcorper ac eu orci. Morbi eu nisl sit amet nisl ornare luctus sed sit amet dui. Duis at dui nulla. Quisque auctor faucibus orci, sit amet scelerisque est.
-          </span>
-          <span class="levelauthor">Somebody</span>
-          <div class="levelsmall" tabindex="0">1</div>
-          <div class="levelsmall" tabindex="0">2</div>
-          <div class="levelsmall completed" tabindex="0">3</div>
-          <div class="levelsmall completed" tabindex="0">4</div>
-          <div class="levelsmall completed" tabindex="0">5</div>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag"></div>
-        </div>
-        <div class="levelfullwidth">
-          <h4 class="leveltitle">A Level w/  Author</h3>
-          <span class="levelauthor">Somebody</span>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag completed"></div>
-        </div>
-        <div class="levelfullwidth">
-          <h4 class="leveltitle">A Level w/ Description & Author</h3>
-          <span class="leveldisc">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ut magna quis velit consectetur ullamcorper ac eu orci. Morbi eu nisl sit amet nisl ornare luctus sed sit amet dui. Duis at dui nulla. Quisque auctor faucibus orci, sit amet scelerisque est.
-          </span>
-          <span class="levelauthor">Somebody</span>
-          <div class="leveltoolbar">
-            <button class="iconbutton play"></button>
-            <button class="iconbutton edit"></button>
-            <button class="iconbutton download"></button>
-            <button class="iconbutton delete"></button>
-          </div>
-          <div class="flag"></div>
-        </div>
-        <div class="levelstoolbar">
-          <button class="iconbutton new"></button>
-          <button class="iconbutton upload"></button>
-          <button class="iconbutton archive"></button>
-        </div>
-      </div>
+    </div>
+    <div class="game">
+    
     </div>
   </body>
 </html>

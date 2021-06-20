@@ -212,6 +212,7 @@ body {
 .iconbutton.new      { background-image: url(assets/icons/plus-square-solid.svg);   }
 .iconbutton.upload   { background-image: url(assets/icons/file-upload-solid.svg);   }
 .iconbutton.archive  { background-image: url(assets/icons/archive-solid.svg);       }
+.iconbutton.copy     { background-image: url(assets/icons/copy-solid.svg);          }
 
 .iconbutton:not(:hover):not(:focus) {
   filter: grayscale(1) brightness(10000%) brightness(75%);
