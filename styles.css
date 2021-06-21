@@ -210,6 +210,7 @@ body {
 .iconbutton.download { background-image: url(assets/icons/file-download-solid.svg); }
 .iconbutton.delete   { background-image: url(assets/icons/trash-alt-solid.svg);     }
 .iconbutton.new      { background-image: url(assets/icons/plus-square-solid.svg);   }
+.iconbutton.newpack  { background-image: url(assets/icons/folder-plus-solid.svg);   }
 .iconbutton.upload   { background-image: url(assets/icons/file-upload-solid.svg);   }
 .iconbutton.archive  { background-image: url(assets/icons/archive-solid.svg);       }
 .iconbutton.copy     { background-image: url(assets/icons/copy-solid.svg);          }

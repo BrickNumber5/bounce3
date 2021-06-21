@@ -1,5 +1,6 @@
  - [ ] Release 3.0.0beta001
    - [x] Title Screen: HTML and CSS
+   - [x] Menuing Scripts
    - [ ] Basics Physics and Rendering Scripts
    - [ ] Level Editor Overview
    - [ ] .bounce file format

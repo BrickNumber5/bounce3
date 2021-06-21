@@ -1,11 +1,11 @@
 /*
  * util.js
  * This script contains various variables and functions that are used by multiple other scripts,
- * configuration and the like, and handles setup and launching into other scripts
+ * configuration and the like, and handles setup and launching into other scripts.
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha006",
+  NUMBER      : "v3.0.0alpha007",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -20,3 +20,7 @@ function mkStringUUID( prefix = "" ) {
   usedStringUUIDS.add( uuid )
   return prefix + uuid
 }
+
+window.addEventListener( "load", ( ) => {
+  setVersionDisplays( ) // From uimanager.js
+} )
