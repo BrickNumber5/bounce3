@@ -15,7 +15,7 @@ class LevelLike {
     this.completed = completed
   }
   play( ) {
-    // ...
+    startLevel( this )
   }
   
   edit( ) {
@@ -29,6 +29,10 @@ class LevelLike {
   remove( ) {
     removeLevelUIComponent( this )
     customLevels.delete( this )
+  }
+  
+  updateUI( ) {
+    updateLevelUIComponent( this )
   }
 }
 
