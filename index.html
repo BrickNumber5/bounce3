@@ -8,6 +8,9 @@
     <script src="scripts/util.js"></script>
     <script src="scripts/uimanager.js"></script>
     <script src="scripts/levelmanager.js"></script>
+    <script src="scripts/levelobjects/template.js"></script>
+    <script src="scripts/gamemanager.js"></script>
+    <script src="scripts/renderer.js"></script>
   </head>
   <body>
     <div class="titlescreen">
@@ -28,8 +31,12 @@
         </div>
       </div>
     </div>
-    <div class="game">
-    
+    <div class="gamescreen" style="display: none;">
+      <canvas class="mainrenderer"></canvas>
+      <button class="backbutton" onclick="stopGame( );"></button>
+    </div>
+    <div class="editorscreen" style="display: none;">
+      <canvas class="mainrenderer"></canvas>
     </div>
   </body>
 </html>

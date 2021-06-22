@@ -175,3 +175,9 @@ function setVersionDisplays( ) {
     versionLine.appendChild( experimental )
   }
 }
+
+function setUIPage( page /* "menu" | "game" | "editor" */ ) {
+  document.querySelector( ".titlescreen"  ).style.display = page == "menu"   ? "" : "none"
+  document.querySelector( ".gamescreen"   ).style.display = page == "game"   ? "" : "none"
+  document.querySelector( ".editorscreen" ).style.display = page == "editor" ? "" : "none"
+}
