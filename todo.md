@@ -2,6 +2,8 @@
    - [x] Title Screen: HTML and CSS
    - [x] Menuing Scripts
    - [ ] Basics Physics and Rendering Scripts
+      - [ ] Physics
+      - [ ] Rendering
    - [ ] Level Editor Overview
    - [ ] .bounce file format
      - [ ] Technical Description
