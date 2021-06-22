@@ -37,8 +37,9 @@ class LevelLike {
 }
 
 class Level extends LevelLike {
-  constructor ( title = "Untited Level", disc = "", author = "", completed = false ) {
+  constructor ( title = "Untited Level", disc = "", author = "", completed = false, objects = [ ] ) {
     super( title, disc, author, completed )
+    this.objects = objects
   }
 }
 

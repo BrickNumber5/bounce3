@@ -4,7 +4,7 @@
  * of logic to renderer.js and physicsengine.js
  */
 
-let levelsQueue = [ ]
+let levelsQueue = [ ], currentLevel
 function startLevel( levellike ) {
   levelsQueue = levellike instanceof LevelPack ? [ ...levellike.levels ] : [ levellike ]
   generalState.mode = "game"
@@ -13,7 +13,8 @@ function startLevel( levellike ) {
 
 // Pulls levels from the Queue
 function startNextLevel( ) {
-  
+  currentLevel = levelsQueue.shift( )
+  levelObjectTypes.forEach( lot => lot.currentLevelInstances = currentLevel.objects.filter( lo => lo instanceof lot ) )
 }
 
 // Immediatly Ends the current Level

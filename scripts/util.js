@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha008",
+  NUMBER      : "v3.0.0alpha009",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -54,6 +54,8 @@ const COLOR = {
   mgDarker: "#555",
   mgLighter: "#777",
 }
+
+const levelObjectTypes = [ ]
 
 // Creates strings of the form "XXXX-XXXX-XXXX-XXXX" where X is a random hex digit
 let usedStringUUIDS = new Set( ) // To insure no UUID reusage is possible

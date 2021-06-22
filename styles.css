@@ -86,6 +86,7 @@ body {
 }
 
 .levels {
+  padding-right: 1rem;
   flex: 1 1 40rem;
   width: 0;
   max-height: 50vh;
@@ -97,7 +98,7 @@ body {
   width: 1rem;
 }
 
-.levels::-webkit-scrollbar-thumb {
+.levels:hover::-webkit-scrollbar-thumb {
   border-radius: 0.5rem;
   background-color: var(--fg-darker);
 }

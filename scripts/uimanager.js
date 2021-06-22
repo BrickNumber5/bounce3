@@ -161,7 +161,7 @@ function setVersionDisplays( ) {
   
   let versionName = document.createElement( "span" )
   versionName.className = "versionname"
-  versionName.innerText = VERSION.NAME.replace( " ", "\u00a0" /* NBSP */ )
+  versionName.innerText = VERSION.NAME.replaceAll( " ", "\u00a0" /* NBSP */ )
   versionLine.appendChild( versionName )
   
   let changelog = document.createElement( "span" )

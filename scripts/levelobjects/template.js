@@ -51,6 +51,4 @@ class LevelObject {
   }
 }
 
-LevelObject.renderOrder = -1 // Lower Numbers render first, higher numbers render later, negative numbers don't render at all.
-                             // This value can also be an array for objects that render at multiple points, the renderAll and renderAllEditor functions
-                             // will recieve a fourth parameter "renderStep" for objects using this functionality
+// levelObjectTypes.push( ... )
