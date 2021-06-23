@@ -3,7 +3,7 @@
    - [x] Menuing Scripts
    - [ ] Basics Physics and Rendering Scripts
       - [ ] Physics
-      - [ ] Rendering
+      - [x] Rendering
    - [ ] Level Editor Overview
    - [ ] .bounce file format
      - [ ] Technical Description
