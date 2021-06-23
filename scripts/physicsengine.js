@@ -23,31 +23,36 @@ function physicsStep( elapsedTime ) {
 }
 
 function movePlayer( sx, sy, ex, ey ) {
-  let checkCollisions = true,
-      lastCollider = null // Prevents a double-collision with the same collider which effectively cancels out the collision altogether
-  colCheckLoop: while ( checkCollisions ) {
-    checkCollisions = false // Every time a colision is found, this variable is set to true again and the loop is immediatly
-                            // `continue`d, this means that the loop won't exit until it makes a full pass without finding
-                            // any collisions and when it finds one it won't bother to keep checking collisions that ir will
-                            // have to check again anyways
+  let checkCollisions = true, nearestCol = null, nearestColDistSq = Infinity
+  while ( checkCollisions ) {
+    checkCollisions = false
+    nearestCol = null
+    nearestColDistSq = Infinity
     for ( let i = 0; i < currentLevel.objects.length; i++ ) {
       let obj = currentLevel.objects[ i ]
       if ( obj.colliders ) {
         for ( let j = 0; j < obj.colliders.length; j++ ) {
           let col = obj.colliders[ j ]
-          if ( col == lastCollider ) continue // This only continues the "j" loop
           let res = col.collisionOnPath( sx, sy, ex, ey )
           if ( res.collided ) {
-            sx = res.nsx
-            sy = res.nsy
-            ex = res.nex
-            ey = res.ney
-            lastCollider = col
             checkCollisions = true
-            continue colCheckLoop
+            let d = ( res.nsx - sx ) ** 2 + ( res.nsy - sy ) ** 2
+            if ( d < nearestColDistSq ) {
+              nearestCol = res
+              nearestColDistSq = d
+            }
           }
         }
       }
+    }
+    if ( nearestCol ) {
+      sx = nearestCol.nsx
+      sy = nearestCol.nsy
+      ex = nearestCol.nex
+      ey = nearestCol.ney
+      player.vx = nearestCol.nvx
+      player.vy = nearestCol.nvy
+      player.va = Math.atan2( player.vy, player.vx )
     }
   }
   player.x = ex
@@ -96,15 +101,14 @@ class SegmentCollider extends Collider {
     ex = rE.x - tx
     ey = rE.y - ty
     let rV = reflectPointOverLine( player.vx, player.vy, 0, 0, this.x2 - this.x1, this.y2 - this.y1 )
-    player.vx = rV.x
-    player.vy = rV.y
-    player.va = Math.atan2( player.vy, player.vx )
     return {
       collided: true,
       nsx: sx,
       nsy: sy,
       nex: ex,
-      ney: ey
+      ney: ey,
+      nvx: rV.x,
+      nvy: rV.y
     }
   }
   
@@ -137,32 +141,28 @@ class ArcCollider extends Collider {
   }
   
   collisionOnPath( sx, sy, ex, ey ) {
-    let dx = ( ex - sx ),
-        dy = ( ey - sy ),
-        oneOverPathLength = 1 / Math.sqrt( dx ** 2 + dy ** 2 )
-    let tx = dx * oneOverPathLength,
-        ty = dy * oneOverPathLength
-    sx += tx
-    sy += ty
-    ex += tx
-    ey += ty
-    let res = segmentCircleIntersection( sx, sy, ex, ey, this.cx, this.cy, this.r )
-    if ( !res.b ) return { collided: false }
-    sx = res.x - tx
-    sy = res.y - ty
-    let rE = reflectPointOverLine( ex, ey, res.x, res.y, res.x - ty, res.y + tx )
+    if ( ( this.cx - sx ) ** 2 + ( this.cy - sy ) ** 2 <= ( 1 + this.r ) ** 2 ) return { collided: false }
+    let res = segmentCircleIntersection( sx, sy, ex, ey, this.cx, this.cy, this.r + 1 )
+    if( !res.b ) return { collided: false }
+    sx = res.x
+    sy = res.y
+    let dx = ( this.cx - sx ),
+        dy = ( this.cy - sy ),
+        oneOverLength = 1 / Math.sqrt( dx ** 2 + dy ** 2 )
+    let tx = dx * oneOverLength,
+        ty = dy * oneOverLength
+    let rE = reflectPointOverLine( ex + tx, ey + ty, res.x + tx, res.y + ty, res.x + tx + ty, res.y + ty - tx )
     ex = rE.x - tx
     ey = rE.y - ty
-    let rV = reflectPointOverLine( player.vx, player.vy, 0, 0, -ty, tx )
-    player.vx = rV.x
-    player.vy = rV.y
-    player.va = Math.atan2( player.vy, player.vx )
+    let rV = reflectPointOverLine( player.vx, player.vy, 0, 0, ty, -tx )
     return {
       collided: true,
       nsx: sx,
       nsy: sy,
       nex: ex,
-      ney: ey
+      ney: ey,
+      nvx: rV.x,
+      nvy: rV.y
     }
   }
   
