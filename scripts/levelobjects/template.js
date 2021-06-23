@@ -30,6 +30,8 @@ class LevelObject {
     // i.e. any chunk that should render this object, or should cause physics calculations on this
     // object if the screen / player is suffeciently close
     return [ ]
+    
+    // ! NOT YET USED BY GAME
   }
   
   static renderAll( cnvs, ctx, objs ) {
@@ -39,15 +41,21 @@ class LevelObject {
   
   static renderAllEditor( cnvs, ctx, objs ) {
     // Same as renderAll but runs in the editor
+    
+    // ! NOT YET USED BY GAME
   }
   
   onTick( elapsedTime ) {
     // Runs every game tick, is passed the time that has elapsed since the last tick, which is useful for timers and such, this function
     // runs regardless of the object's chunks
+    
+    // ! NOT YET USED BY GAME
   }
   
   onTickEditor( elapsedTime ) {
     // Runs every game tick in the editor
+    
+    // ! NOT YET USED BY GAME
   }
 }
 
