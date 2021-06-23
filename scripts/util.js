@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha012",
+  NUMBER      : "v3.0.0alpha013",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -34,12 +34,17 @@ const canvases = {
   h: 0
 }
 
-const UNITSIZE = 20 // The size of one unit in pixels
+const UNITSIZE = 16 // The size of one unit in pixels
 
 const COLOR = {
   ground:      "#ccc",
   player:      "#44c",
-  debugObject: "#0f0"
+  debugObject: "#0f0",
+  dashIndicator: {
+    outline: "#fff",
+    outlineDead: "#888",
+    fill: "#aff"
+  }
 }
 
 const levelObjectTypes = [ ]
@@ -65,6 +70,7 @@ window.addEventListener( "load", ( ) => {
   canvases.editor = document.querySelector( ".editorscreen .mainrenderer" )
   fullscreenCanvas( canvases.editor )
   canvases.editorctx = canvases.editor.getContext( "2d" )
+  setupGamemanager( )
   setInterval( tick, 25 )
 } )
 

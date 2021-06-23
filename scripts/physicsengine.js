@@ -5,6 +5,7 @@
 
 const GRAVITY = -0.00005
 const FRICTION = 0.9999 // This is the amount of velocity maintained per ms
+const DASHSTRENGTH = 0.01
 
 function physicsStep( elapsedTime ) {
   player.va = Math.atan2( player.vy, player.vx )
@@ -53,6 +54,7 @@ function movePlayer( sx, sy, ex, ey ) {
       player.vx = nearestCol.nvx
       player.vy = nearestCol.nvy
       player.va = Math.atan2( player.vy, player.vx )
+      player.dash = true
     }
   }
   player.x = ex
