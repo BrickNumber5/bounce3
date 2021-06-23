@@ -4,6 +4,7 @@
  */
 
 const GRAVITY = -0.00005
+const FRICTION = 0.9999 // This is the amount of velocity maintained per ms
 
 function physicsStep( elapsedTime ) {
   player.va = Math.atan2( player.vy, player.vx )
@@ -11,10 +12,19 @@ function physicsStep( elapsedTime ) {
   
   // Gravity
   player.vy += GRAVITY * elapsedTime
+  
+  // Friction
+  player.vx *= FRICTION ** elapsedTime
+  player.vy *= FRICTION ** elapsedTime
+  
+  // Speed Caps
+  if ( Math.abs( player.vx ) <= 0.001 ) player.vx = 0
+  if ( Math.abs( player.vy ) <= 0.001 ) player.vy = 0
 }
 
 function movePlayer( sx, sy, ex, ey ) {
-  let checkCollisions = true
+  let checkCollisions = true,
+      lastCollider = null // Prevents a double-collision with the same collider which effectively cancels out the collision altogether
   colCheckLoop: while ( checkCollisions ) {
     checkCollisions = false // Every time a colision is found, this variable is set to true again and the loop is immediatly
                             // `continue`d, this means that the loop won't exit until it makes a full pass without finding
@@ -25,12 +35,14 @@ function movePlayer( sx, sy, ex, ey ) {
       if ( obj.colliders ) {
         for ( let j = 0; j < obj.colliders.length; j++ ) {
           let col = obj.colliders[ j ]
+          if ( col == lastCollider ) continue // This only continues the "j" loop
           let res = col.collisionOnPath( sx, sy, ex, ey )
           if ( res.collided ) {
             sx = res.nsx
             sy = res.nsy
             ex = res.nex
             ey = res.ney
+            lastCollider = col
             checkCollisions = true
             continue colCheckLoop
           }
@@ -69,7 +81,7 @@ class SegmentCollider extends Collider {
   }
   
   collisionOnPath( sx, sy, ex, ey ) {
-    if ( Math.cos( this.a - player.va + Math.PI / 2 ) > 1 ) return { collided: false }
+    if ( Math.abs( angleDifference( this.a - Math.PI / 2, player.va ) ) > Math.PI / 2 ) return { collided: false } // Makes the collider one-sided
     let tx = this.ay,
         ty = -this.ax
     sx += tx
@@ -86,6 +98,7 @@ class SegmentCollider extends Collider {
     let rV = reflectPointOverLine( player.vx, player.vy, 0, 0, this.x2 - this.x1, this.y2 - this.y1 )
     player.vx = rV.x
     player.vy = rV.y
+    player.va = Math.atan2( player.vy, player.vx )
     return {
       collided: true,
       nsx: sx,
@@ -121,6 +134,36 @@ class ArcCollider extends Collider {
     this.r  = r
     this.sa = sa
     this.ea = ea
+  }
+  
+  collisionOnPath( sx, sy, ex, ey ) {
+    let dx = ( ex - sx ),
+        dy = ( ey - sy ),
+        oneOverPathLength = 1 / Math.sqrt( dx ** 2 + dy ** 2 )
+    let tx = dx * oneOverPathLength,
+        ty = dy * oneOverPathLength
+    sx += tx
+    sy += ty
+    ex += tx
+    ey += ty
+    let res = segmentCircleIntersection( sx, sy, ex, ey, this.cx, this.cy, this.r )
+    if ( !res.b ) return { collided: false }
+    sx = res.x - tx
+    sy = res.y - ty
+    let rE = reflectPointOverLine( ex, ey, res.x, res.y, res.x - ty, res.y + tx )
+    ex = rE.x - tx
+    ey = rE.y - ty
+    let rV = reflectPointOverLine( player.vx, player.vy, 0, 0, -ty, tx )
+    player.vx = rV.x
+    player.vy = rV.y
+    player.va = Math.atan2( player.vy, player.vx )
+    return {
+      collided: true,
+      nsx: sx,
+      nsy: sy,
+      nex: ex,
+      ney: ey
+    }
   }
   
   render( cnvs, ctx ) {

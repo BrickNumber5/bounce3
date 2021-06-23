@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha010",
+  NUMBER      : "v3.0.0alpha011",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -38,7 +38,7 @@ const UNITSIZE = 20 // The size of one unit in pixels
 
 const COLOR = {
   ground:      "#ccc",
-  player:      "#66c",
+  player:      "#44c",
   debugObject: "#0f0"
 }
 
@@ -93,6 +93,10 @@ function tick( ) {
   }
 }
 
+function mod( n, m ) {
+  return ( ( n % m ) + m ) % m
+}
+
 function segmentSegmentIntersection( s1x1, s1y1, s1x2, s1y2, s2x1, s2y1, s2x2, s2y2 ) {
   let d = ( s1x1 - s1x2 ) * ( s2y1 - s2y2 ) - ( s1y1 - s1y2 ) * ( s2x1 - s2x2 )
   let t = ( ( s1x1 - s2x1 ) * ( s2y1 - s2y2 ) - ( s1y1 - s2y1 ) * ( s2x1 - s2x2 ) ) / d
@@ -100,6 +104,32 @@ function segmentSegmentIntersection( s1x1, s1y1, s1x2, s1y2, s2x1, s2y1, s2x2, s
   let x = s1x1 + t * ( s1x2 - s1x1 ), y = s1y1 + t * ( s1y2 - s1y1 )
   let b = t > 0 && t <= 1 && u > 0 && u <= 1
   return { t, u, x, y, b }
+}
+
+function segmentCircleIntersection( ax, ay, bx, by, cx, cy, r ) {
+  ax -= cx
+  ay -= cy
+  bx -= cx
+  by -= cy
+  
+  let A = ax ** 2 + ay ** 2 - 2 * ( ax * bx + ay * by ) + bx ** 2 + by ** 2
+  let B = 2 * ( ax * bx + ay * by - bx ** 2 - by ** 2 )
+  let C = bx ** 2 + by ** 2 - r ** 2
+  
+  let t1 = ( -B + Math.sqrt( B ** 2 - ( 4 * A * C ) ) ) / ( 2 * A ),
+      t2 = ( -B - Math.sqrt( B ** 2 - ( 4 * A * C ) ) ) / ( 2 * A )
+  
+  let t = Math.max( t1, t2 )
+  
+  let b = t > 0 && t <= 1
+  
+  let ix = ax * t + bx * ( 1 - t )
+  let iy = ay * t + by * ( 1 - t )
+  
+  ix += cx
+  iy += cy
+  
+  return { t, b, x: ix, y: iy }
 }
 
 function reflectPointOverLine( p, q, x1, y1, x2, y2 ) {
@@ -110,4 +140,10 @@ function reflectPointOverLine( p, q, x1, y1, x2, y2 ) {
     x: ( p * ( b ** 2 - a ** 2 ) - 2 * a * ( b * q + c ) ) / ab2,
     y: ( q * ( a ** 2 - b ** 2 ) - 2 * b * ( a * p + c ) ) / ab2
   }
+}
+
+function angleDifference( a1, a2 ) {
+  let a = a1 - a2
+  a = mod( a + Math.PI, 2 * Math.PI ) - Math.PI
+  return a
 }
