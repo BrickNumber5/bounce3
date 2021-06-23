@@ -1,10 +1,17 @@
  - [ ] Release 3.0.0beta001
    - [x] Title Screen: HTML and CSS
    - [x] Menuing Scripts
-   - [ ] Basics Physics and Rendering Scripts
-      - [ ] Physics
+   - [x] Basics Physics and Rendering Scripts
+      - [x] Physics
       - [x] Rendering
+   - [x] The Dash
+   - [ ] Arc Collider angle limiting
+   - [ ] Trails
    - [ ] Level Editor Overview
+   - [ ] Restart Button
+   - [ ] Pausing
+     - [ ] By Button
+     - [ ] Auto on unfocus
    - [ ] .bounce file format
      - [ ] Technical Description
      - [ ] Processor
