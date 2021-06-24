@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha014",
+  NUMBER      : "v3.0.0alpha015",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -30,6 +30,8 @@ const canvases = {
   gamectx: null,
   editor: null,
   editorctx: null,
+  temp: null,
+  tempctx: null,
   w: 0,
   h: 0
 }
@@ -44,7 +46,8 @@ const COLOR = {
     outline: "#fff",
     outlineDead: "#888",
     fill: "#8accff"
-  }
+  },
+  trail: [ "#ffffff", "#8accff" ]
 }
 
 const levelObjectTypes = [ ]
@@ -70,6 +73,9 @@ window.addEventListener( "load", ( ) => {
   canvases.editor = document.querySelector( ".editorscreen .mainrenderer" )
   fullscreenCanvas( canvases.editor )
   canvases.editorctx = canvases.editor.getContext( "2d" )
+  canvases.temp = document.querySelector( ".temprenderer" )
+  fullscreenCanvas( canvases.temp )
+  canvases.tempctx = canvases.temp.getContext( "2d" )
   setupGamemanager( )
   setInterval( tick, 25 )
 } )
@@ -77,6 +83,7 @@ window.addEventListener( "load", ( ) => {
 window.addEventListener( "resize", ( ) => {
   fullscreenCanvas( canvases.game )
   fullscreenCanvas( canvases.editor )
+  fullscreenCanvas( canvases.temp )
 } )
 
 function fullscreenCanvas( canvas ) {
@@ -152,4 +159,31 @@ function angleDifference( a1, a2 ) {
   let a = a1 - a2
   a = mod( a + Math.PI, 2 * Math.PI ) - Math.PI
   return a
+}
+
+function lerp( a, b, t ) {
+  return a * ( 1 - t ) + b * t
+}
+
+/* The following functions all assume a string color is "#rrggbb" exactly */
+
+function rgbToStringColor( rgb ) {
+  return `#${ rgb.r.toString( 16 ).padStart( 2, 0 ) }${ rgb.g.toString( 16 ).padStart( 2, 0 ) }${ rgb.b.toString( 16 ).padStart( 2, 0 ) }`
+}
+
+function stringColorToRgb( stringcolor ) {
+  let r = parseInt( stringcolor.substring( 1, 3 ), 16 )
+  let g = parseInt( stringcolor.substring( 3, 5 ), 16 )
+  let b = parseInt( stringcolor.substring( 5, 7 ), 16 )
+  return { r, g, b }
+}
+
+function lerpColor( a, b, t ) {
+  let ca = stringColorToRgb( a ),
+      cb = stringColorToRgb( b )
+  return rgbToStringColor( {
+    r: Math.round( lerp( ca.r, cb.r, t ) ),
+    g: Math.round( lerp( ca.g, cb.g, t ) ),
+    b: Math.round( lerp( ca.b, cb.b, t ) )
+  } )
 }

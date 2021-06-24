@@ -34,6 +34,7 @@ function startNextLevel( ) {
   currentLevel = levelsQueue.shift( )
   currentLevel.objects.forEach( lo => lo.onBuild( ) )
   levelObjectTypes.forEach( lot => lot.currentLevelInstances = currentLevel.objects.filter( lo => lo instanceof lot ) )
+  trail = Array.from( { length: TRAILLENGTH }, ( ) => ( { x: null, y: null } ) )
   spawnPlayer( )
 }
 
@@ -44,6 +45,8 @@ function spawnPlayer( spawnPoint = { x: 0, y: 0 }, first = true ) {
   player.dash = false
   currentLevel.objects.forEach( lo => lo.onSpawn( ) )
   currentLevel.objects.forEach( lo => first ? lo.onSpawnFirst( ) : onSpawnCheckPoint( ) )
+  trail.shift( )
+  trail.push( { x: null, y: null } )
 }
 
 // Immediatly Ends the current Level

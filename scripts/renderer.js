@@ -3,6 +3,9 @@
  * This script handles drawing to the canvases for the game and editor
  */
 
+const TRAILLENGTH = 60
+let trail = Array.from( { length: TRAILLENGTH }, ( ) => ( { x: null, y: null } ) )
+
 function renderGame( ) {
   // Setup
   let cnvs = canvases.game, ctx = canvases.gamectx, w = canvases.w, h = canvases.h
@@ -14,6 +17,10 @@ function renderGame( ) {
   let renderObject = renderLevelObjectType.bind( renderLevelObjectType, cnvs, ctx )
   
   renderObject( Segment )
+  
+  trail.shift( )
+  trail.push( { x: player.x, y: player.y } )
+  drawTrail( cnvs, ctx )
   
   // Draw Player
   ctx.fillStyle = COLOR.player
@@ -84,4 +91,37 @@ function drawDiamond( ctx, x, y, ax, ay ) {
   ctx.lineTo( x - ax, y - ay )
   ctx.lineTo( x - ay, y + ax )
   ctx.closePath( )
+}
+
+function drawTrail( mcnvs, mctx ) {
+  let cnvs = canvases.temp, ctx = canvases.tempctx, w = canvases.w, h = canvases.h
+  ctx.setTransform( 1, 0, 0, 1, 0, 0 )
+  ctx.clearRect( 0, 0, w, h )
+  ctx.translate( w / 2, h / 2 )
+  ctx.scale( UNITSIZE, -UNITSIZE )
+  ctx.translate( -player.x, -player.y )
+  ctx.lineCap = "round"
+  for ( let i = 1; i < trail.length; i++ ) {
+    if ( trail[ i ].x != null && trail[ i - 1 ].x != null ) {
+      ctx.globalCompositeOperation = "destination-out"
+      ctx.lineWidth = 1.95 * ( i / ( trail.length - 1 ) )
+      ctx.globalAlpha = 1
+      ctx.beginPath( )
+      ctx.moveTo( trail[ i ].x, trail[ i ].y )
+      ctx.lineTo( trail[ i - 1 ].x, trail[ i - 1 ].y )
+      ctx.stroke( )
+      ctx.globalCompositeOperation = "source-over"
+      ctx.lineWidth = 2 * ( i / ( trail.length - 1 ) )
+      ctx.globalAlpha = -1 / ( ( i / ( trail.length - 1 ) ) - 2 )
+      ctx.strokeStyle = lerpColor( COLOR.trail[ 0 ], COLOR.trail[ 1 ], i / ( trail.length - 1 ) )
+      ctx.beginPath( )
+      ctx.moveTo( trail[ i ].x, trail[ i ].y )
+      ctx.lineTo( trail[ i - 1 ].x, trail[ i - 1 ].y )
+      ctx.stroke( )
+    }
+  }
+  let t = mctx.getTransform( )
+  mctx.setTransform( 1, 0, 0, 1, 0, 0 )
+  mctx.drawImage( cnvs, 0, 0 )
+  mctx.setTransform( t )
 }
