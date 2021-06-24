@@ -56,6 +56,7 @@ function setupGamemanager( ) {
   cnvs.addEventListener( "mousedown", startDash )
   cnvs.addEventListener( "mousemove", editDash )
   cnvs.addEventListener( "mouseup", releaseDash )
+  cnvs.addEventListener( "mouseleave", cancelDash )
 }
 
 function startDash( e ) {
@@ -78,6 +79,18 @@ function editDash( e ) {
 
 function releaseDash( ) {
   if ( ( ( dashInterfaceData.x1 != dashInterfaceData.x2 ) || ( dashInterfaceData.y1 != dashInterfaceData.y2 ) ) && player.dash ) preformDash( )
+  dashInterfaceData = {
+    active: false,
+    x1: null,
+    y1: null,
+    x2: null,
+    y2: null,
+    ax: null,
+    ay: null
+  }
+}
+
+function cancelDash( ) {
   dashInterfaceData = {
     active: false,
     x1: null,
