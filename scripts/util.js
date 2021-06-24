@@ -43,7 +43,7 @@ const COLOR = {
   dashIndicator: {
     outline: "#fff",
     outlineDead: "#888",
-    fill: "#aff"
+    fill: "#8accff"
   }
 }
 
