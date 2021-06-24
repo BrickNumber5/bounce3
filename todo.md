@@ -6,7 +6,7 @@
       - [x] Rendering
    - [x] The Dash
    - [ ] Arc Collider angle limiting
-   - [ ] Trails
+   - [x] Trails
    - [ ] Level Editor Overview
    - [ ] Restart Button
    - [ ] Pausing
@@ -15,4 +15,10 @@
    - [ ] .bounce file format
      - [ ] Technical Description
      - [ ] Processor
+   - [ ] Add license
+   - [ ] Touch Support
+   - [ ] Keyboard Shortcuts for various buttons in play and edit mode
+   - [ ] Parallax Starfield Background
+   - [ ] Polygon Level Object
    - [ ] Features Writup ( Initial Changelog Entry )
+ - [ ] Release 3.0.0
