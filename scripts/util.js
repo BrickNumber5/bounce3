@@ -86,6 +86,12 @@ window.addEventListener( "resize", ( ) => {
   fullscreenCanvas( canvases.temp )
 } )
 
+window.addEventListener( "blur", ( ) => {
+  if ( generalState.mode == "game" ) {
+    pause( )
+  }
+} )
+
 function fullscreenCanvas( canvas ) {
   canvas.width  = canvases.w = window.innerWidth
   canvas.height = canvases.h = window.innerHeight

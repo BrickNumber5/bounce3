@@ -22,9 +22,13 @@ let dashInterfaceData = {
   ay: null
 }
 
+let PAUSED = false
+
 function gameTick( ) {
-  physicsStep( elapsedTime )
-  renderGame( )
+  if ( !PAUSED ) {
+    physicsStep( elapsedTime )
+    renderGame( )
+  }
 }
 
 let levelsQueue = [ ], currentLevel
@@ -114,4 +118,14 @@ function preformDash( ) {
   player.vx += DASHSTRENGTH * -dashInterfaceData.ax
   player.vy += DASHSTRENGTH * -dashInterfaceData.ay
   player.dash = false
+}
+
+function pause( ) {
+  PAUSED = true
+  document.querySelector( ".pausedscreen" ).style.display = ""
+}
+
+function unpause( ) {
+  PAUSED = false
+  document.querySelector( ".pausedscreen" ).style.display = "none"
 }
