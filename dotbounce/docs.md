@@ -28,3 +28,19 @@ A `data-item` starts with a 1-byte `type-id`, which specifies the type of data t
 | `A0`        | list    | Variable              | A list of `data-items`, terminated with a null byte                                                                                                  |
 | `B0`        | complex | Variable              | A list of key value pairs, where the keys are strings ( with a 1-byte length prefix ) and the values are `data-items`, terminated with a null byte   |
 | `F0`        | special | Variable              | A 1-byte length prefixed string, then the same as type list, this series of elements is passed as arguments to a function determined by the string   |
+
+Ids `50` - `9F` are also used for type special, using the exact same encoding as type list, the function to pass to is now indexed by the id minus `50`instead of a preceeding string for any special functions with this shorthand. A special type can have a string index, a numeric index, or both.
+
+## Using dotbounce.js to read and write .bounce files
+
+The dotbounce.js file creates a single constant: `dotbounce` which has a couple of useful functions, classes and symbols.
+
+The function `dotbounce.parse( buffer, specialDictionary? )` takes an ArrayBuffer and returns a parsed object, it also optionally takes in a `dotbounce.SpecialDictionary` object for handling specials.
+
+The function `dotbounce.encode( object, specialDictionary? )` takes a Javascript object, and returns an ArrayBuffer, it also optionally takes in a `dotbounce.SpecialDictionary` object for handling specials.
+
+The class `dotbounce.UnknownSpecial` represents a special object that didn't have an associated `dotbounce.SpecialDictionary` entry when it was parsed, it contains either a `.stringIndex` or a `.integerIndex` property for what indexing method and index was used, and a `.values` array with all of the special's contents.
+
+The class `dotbounce.SpecialDictionary` object represents a dictionary of special indices and handling functions to operate with specials, the class is constructed with a series of objects, one for each type of special, in the following format:
+
+> An entry should contain a `.stringIndex` or a `.integerIndex` or both, representing the desired indexing value for this type of special, it additionally may contain a `.stringAliases` and/or a `.integerAliases` array of additional index values if those are desired. ( Aliases will be read as valid, but never written ) An entry should contain a `.parserFunction` function which is the function passed the arguments in the buffer after they are parsed. An entry can contain an addition pair of functions `.test` and `.getValues` which should test an object for if it should be encoded as this type of special and retrieve a series of values to store to the buffer repectively.
