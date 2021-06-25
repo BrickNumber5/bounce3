@@ -45,7 +45,10 @@ The class `dotbounce.SpecialDictionary` object represents a dictionary of specia
 
 > An entry should contain a `stringIndex` or a `integerIndex` or both, representing the desired indexing value for this type of special, it additionally may contain a `stringAliases` and/or a `integerAliases` array of additional index values if those are desired. ( Aliases will be read as valid, but never written ) An entry should contain a `parserFunction` function which is the function passed the arguments in the buffer after they are parsed. An entry can contain an addition pair of functions `test` and `getValues` which should test an object for if it should be encoded as this type of special and retrieve a series of values to store to the buffer repectively.
 
+`dotbounce.SpecialDictionary` extends Array so all the usual Array functions are available to it
+
 Below is an example of a `dotbounce.SpecialDictionary` encoding a custom class `Test`:
+
 ```javascript
 class Test {
   constructor( a, b, c ) {
@@ -53,6 +56,8 @@ class Test {
     this.b = b
     this.c = c
   }
+  
+  /* ... */
 }
 
 let dict = new dotbounce.SpecialDictionary( {
@@ -63,3 +68,11 @@ let dict = new dotbounce.SpecialDictionary( {
   parserFunction: values => new Test( ...values )
 } )
 ```
+
+The symbol `dotbounce.ENCODER` can be used as the key of an object property to set a function that encodes that object as a symbol, the function should return an object with a `stringIndex` or an `integerIndex` property ( not both ) and a `values` property
+
+The property `dotbounce.globalSpecialDictionary` is an instance of `dotbounce.SpecialDictionary` that is used in all calls to `dotbounce.parse` and `dotbounce.encode` in addition to any dictionary passed to the function
+
+For parsing specials, first the `dotbounce.specialDictionary` passed to function is checked, if there is one, if there isn't or it doesn't have a matching entry, the `dotbounce.globalSpecialDictionary` is checked, if it doesn't have a matching entry, a `dotbounce.UnknownSpecial` is created
+
+For encoding specials, first the object's `dotbounce.ENCODER` property is used, if it exists, otherwise, the `dotbounce.specialDictionary` passed to the function is checked and if it has a matching entry used, if it doesn't exist, or doesn't have a matching entry, the `dotbounce.globalSpecialDictionary` is checked and if it has a matching entry used, if it doesn't exist, or doesn't have a matching entry, the object is encoded as a non-special, if it can be, otherwise an error is thrown.  
