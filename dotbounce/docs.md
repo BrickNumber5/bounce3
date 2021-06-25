@@ -41,6 +41,25 @@ The function `dotbounce.encode( object, specialDictionary? )` takes a Javascript
 
 The class `dotbounce.UnknownSpecial` represents a special object that didn't have an associated `dotbounce.SpecialDictionary` entry when it was parsed, it contains either a `.stringIndex` or a `.integerIndex` property for what indexing method and index was used, and a `.values` array with all of the special's contents.
 
-The class `dotbounce.SpecialDictionary` object represents a dictionary of special indices and handling functions to operate with specials, the class is constructed with a series of objects, one for each type of special, in the following format:
+The class `dotbounce.SpecialDictionary` object represents a dictionary of special indices and handling functions to operate with specials, the class is constructed with a series of objects, one for each type of special, with the following properties:
 
-> An entry should contain a `.stringIndex` or a `.integerIndex` or both, representing the desired indexing value for this type of special, it additionally may contain a `.stringAliases` and/or a `.integerAliases` array of additional index values if those are desired. ( Aliases will be read as valid, but never written ) An entry should contain a `.parserFunction` function which is the function passed the arguments in the buffer after they are parsed. An entry can contain an addition pair of functions `.test` and `.getValues` which should test an object for if it should be encoded as this type of special and retrieve a series of values to store to the buffer repectively.
+> An entry should contain a `stringIndex` or a `integerIndex` or both, representing the desired indexing value for this type of special, it additionally may contain a `stringAliases` and/or a `integerAliases` array of additional index values if those are desired. ( Aliases will be read as valid, but never written ) An entry should contain a `parserFunction` function which is the function passed the arguments in the buffer after they are parsed. An entry can contain an addition pair of functions `test` and `getValues` which should test an object for if it should be encoded as this type of special and retrieve a series of values to store to the buffer repectively.
+
+Below is an example of a `dotbounce.SpecialDictionary` encoding a custom class `Test`:
+```javascript
+class Test {
+  constructor( a, b, c ) {
+    this.a = a
+    this.b = b
+    this.c = c
+  }
+}
+
+let dict = new dotbounce.SpecialDictionary( {
+  stringIndex: "Test",
+  stringAliases: [ "test", "Class_Test" ],
+  test: obj => obj instanceof Test,
+  getValues: obj => [ obj.a, obj.b, obj.c ],
+  parserFunction: values => new Test( ...values )
+} )
+```
