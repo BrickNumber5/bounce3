@@ -60,7 +60,7 @@ function createLevelUIComponent( levellike, isBuiltin = false ) {
   // You can't directly edit builtin levels, but if you can make a copy to your custom levels and edit that
   let editorcopy = document.createElement( "button" )
   editorcopy.className = `iconbutton ${ isBuiltin ? "copy" : "edit" }`
-  editorcopy.onclick = isBuiltin ? ( ( ) => console.log( "## COPY ##" ) ) : levellike.edit.bind( levellike )
+  editorcopy.onclick = isBuiltin ? ( ( ) => importLevel( levellike.copy( ) ) ) : levellike.edit.bind( levellike )
   toolbar.appendChild( editorcopy )
   
   let download = document.createElement( "button" )

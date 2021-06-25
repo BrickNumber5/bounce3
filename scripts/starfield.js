@@ -27,10 +27,7 @@ function drawStarfieldLayer( mcnvs, mctx, lyr ) {
       ey = Math.ceil(  ( player.y + mh / 2 ) / STARGRIDSIZE ) + 1
   for ( let i = sx; i < ex; i++ ) {
     for ( let j = sy; j < ey; j++ ) {
-      let ipos = ( i >= 0 ) ? i * 2 : -i * 2 - 1,
-          jpos = ( j >= 0 ) ? j * 2 : -j * 2 - 1
-      let s = ( ipos << 18 ) + ( jpos << 2 ) + lyr
-      TINYSTARFIELDRANDOMSEED = BigInt( s )
+      TINYSTARFIELDRANDOMSEED = BigInt( ( i << 18 ) + ( j << 2 ) + lyr )
       if( tinyStarfieldRandom( ) > 60 - 10 * lyr ) continue
       let ox = STARGRIDSIZE * tinyStarfieldRandom( ) / 100,
           oy = STARGRIDSIZE * tinyStarfieldRandom( ) / 100
@@ -58,8 +55,8 @@ let TINYSTARFIELDRANDOMSEED = 10n
 function tinyStarfieldRandom( ) {
   TINYSTARFIELDRANDOMSEED += 0xe120fc15n
   let tmp = TINYSTARFIELDRANDOMSEED * 0x4a39b70dn
-  let m1 = ( ( tmp >> 32n ) ^ tmp ) % ( 1n << 32n )
+  let m1 = ( tmp >> 32n ) ^ tmp 
   tmp = m1 * 0x12fad5c9n
-  let m2 = ( ( tmp >> 32n ) ^ tmp ) % ( 1n << 32n )
+  let m2 = ( tmp >> 32n ) ^ tmp
   return Number( ( m2 >> 8n ) % 100n )
 }
