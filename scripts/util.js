@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha017",
+  NUMBER      : "v3.0.0alpha018",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -47,7 +47,8 @@ const COLOR = {
     outlineDead: "#888",
     fill: "#8accff"
   },
-  trail: [ "#ffffff", "#8accff" ]
+  trail: [ "#ffffff", "#8accff" ],
+  star: [ "#ff7b7b", "#fffde0" ]
 }
 
 const levelObjectTypes = [ ]
