@@ -22,6 +22,11 @@ let dashInterfaceData = {
   ay: null
 }
 
+function gameTick( ) {
+  physicsStep( elapsedTime )
+  renderGame( )
+}
+
 let levelsQueue = [ ], currentLevel
 function startLevel( levellike ) {
   levelsQueue = levellike instanceof LevelPack ? [ ...levellike.levels ] : [ levellike ]

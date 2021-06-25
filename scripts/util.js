@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha016",
+  NUMBER      : "v3.0.0alpha017",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -99,8 +99,7 @@ function tick( ) {
   lastTime = t
   if ( generalState.mode == "menu" ) return
   if ( generalState.mode == "game" ) {
-    physicsStep( elapsedTime )
-    renderGame( )
+    gameTick( )
   } else if ( generalState.mode == "editor" ) {
     
   }
