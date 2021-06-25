@@ -3,7 +3,7 @@
  * This script handles drawing to the canvases for the game and editor
  */
 
-const TRAILLENGTH = 60
+const TRAILLENGTH = 45
 let trail = Array.from( { length: TRAILLENGTH }, ( ) => ( { x: null, y: null } ) )
 
 function renderGame( ) {
