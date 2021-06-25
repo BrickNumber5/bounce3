@@ -5,7 +5,7 @@
       - [x] Physics
       - [x] Rendering
    - [x] The Dash
-   - [ ] Arc Collider angle limiting
+   - [x] Arc Collider angle limiting
    - [x] Trails
    - [ ] Level Editor Overview
    - [ ] Restart Button
@@ -20,5 +20,7 @@
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
    - [ ] Parallax Starfield Background
    - [ ] Polygon Level Object
+   - [ ] Levelpack editor
+   - [ ] Local Storage Saving of Custom Levels
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
