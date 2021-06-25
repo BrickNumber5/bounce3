@@ -34,12 +34,20 @@ class LevelLike {
   updateUI( ) {
     updateLevelUIComponent( this )
   }
+  
+  copy( ) {
+    // ...
+  }
 }
 
 class Level extends LevelLike {
   constructor ( title = "Untited Level", disc = "", author = "", completed = false, objects = [ ] ) {
     super( title, disc, author, completed )
     this.objects = objects
+  }
+  
+  copy( ) {
+    return new Level( this.title, this.disc, this.author, this.completed, this.objects.map( obj => obj.copy( ) ) )
   }
 }
 
@@ -48,6 +56,12 @@ class LevelPack extends LevelLike {
   constructor ( title = "Untitled Level Pack", disc = "", author = "", completed = false, levels = [ ] ) {
     super( title, disc, author, completed )
     this.levels = levels
+    t = this
+    this.levels.forEach( l => l.pack = t )
+  }
+  
+  copy( ) {
+    return new LevelPack( this.title, this.disc, this.author, this.completed, this.levels.map( l => l.copy( ) ) )
   }
 }
 

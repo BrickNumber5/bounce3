@@ -18,13 +18,17 @@
    - [x] Add license
    - [ ] Touch Support
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
-   - [ ] Parallax Starfield Background
+   - [x] Parallax Starfield Background
    - [ ] Polygon Level Object
    - [ ] Goaltape Level Object
    - [ ] Levelpack editor
-   - [ ] Copy to Custom Button
+   - [x] Copy to Custom Button
    - [ ] Local Storage Saving of Custom Levels
    - [ ] Death by Void
+   - [ ] Download, Upload, and Archive buttons
+     - [ ] Download
+     - [ ] Upload
+     - [ ] Archive ( Download All )
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup

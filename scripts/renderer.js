@@ -16,19 +16,23 @@ function renderGame( ) {
   ctx.translate( -player.x, -player.y )
   let renderObject = renderLevelObjectType.bind( renderLevelObjectType, cnvs, ctx )
   
+  // Starfield
+  drawStarfield( cnvs, ctx )
+  
   renderObject( Segment )
+  
   
   trail.shift( )
   trail.push( { x: player.x, y: player.y } )
   drawTrail( cnvs, ctx )
   
-  // Draw Player
+  // Player
   ctx.fillStyle = COLOR.player
   ctx.beginPath( )
   ctx.arc( player.x, player.y, 1, 0, 2 * Math.PI )
   ctx.fill( )
   
-  // Draw Debug
+  // Debug
   if ( SHOWDEBUGINFO ) {
     currentLevel.objects.forEach( obj => obj.colliders ? obj.colliders.forEach( col => col.render( cnvs, ctx ) ) : null )
   }
