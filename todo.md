@@ -15,7 +15,7 @@
    - [ ] .bounce file format
      - [ ] Technical Description
      - [ ] Processor
-   - [ ] Add license
+   - [x] Add license
    - [ ] Touch Support
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
    - [ ] Parallax Starfield Background
