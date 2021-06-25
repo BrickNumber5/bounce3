@@ -18,7 +18,7 @@
    - [x] Add license
    - [ ] Touch Support
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
-   - [ ] Parallax Starfield Background
+   - [x] Parallax Starfield Background
    - [ ] Polygon Level Object
    - [ ] Goaltape Level Object
    - [ ] Levelpack editor
