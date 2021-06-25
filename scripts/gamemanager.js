@@ -22,6 +22,15 @@ let dashInterfaceData = {
   ay: null
 }
 
+let PAUSED = false
+
+function gameTick( ) {
+  if ( !PAUSED ) {
+    physicsStep( elapsedTime )
+    renderGame( )
+  }
+}
+
 let levelsQueue = [ ], currentLevel
 function startLevel( levellike ) {
   levelsQueue = levellike instanceof LevelPack ? [ ...levellike.levels ] : [ levellike ]
@@ -109,4 +118,14 @@ function preformDash( ) {
   player.vx += DASHSTRENGTH * -dashInterfaceData.ax
   player.vy += DASHSTRENGTH * -dashInterfaceData.ay
   player.dash = false
+}
+
+function pause( ) {
+  PAUSED = true
+  document.querySelector( ".pausedscreen" ).style.display = ""
+}
+
+function unpause( ) {
+  PAUSED = false
+  document.querySelector( ".pausedscreen" ).style.display = "none"
 }
