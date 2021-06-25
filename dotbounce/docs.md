@@ -17,7 +17,7 @@ A `data-item` starts with a 1-byte `type-id`, which specifies the type of data t
 |     Id      | Name    | Additional Bytes Read | Interpretation                                                                                                                                       |
 | :---------: | ------- | :-------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `00`        | N/A     | N/A                   | Non-Id, The ID `00` is not a valid ID because it is instead used as an end-of-section indicator in some contexts                                     |
-| `01` & `02` | bool    | 0                     | `true` and `false`, repsectively                                                                                                                     |
+| `01`&nbsp;&&nbsp;`02` | bool    | 0                     | `true` and `false`, repsectively                                                                                                                     |
 | `0F`        | null    | 0                     | `null`                                                                                                                                               |
 | `10`        | varuint | Variable              | Unsigned var-int                                                                                                                                     |
 | `11` - `18` | uint    | Variable              | Fixed-length unsigned integer, of lengths 1 byte - 8 bytes, respectivly                                                                              |
