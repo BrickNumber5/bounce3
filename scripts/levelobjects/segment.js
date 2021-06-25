@@ -43,6 +43,10 @@ class Segment extends LevelObject {
   static renderAllEditor( cnvs, ctx, objs ) {
     Segment.renderAll( cnvs, ctx, objs )
   }
+  
+  copy( ) {
+    return new Segment( this.x1, this.y1, this.x2, this.y2 )
+  }
 }
 
 levelObjectTypes.push( Segment )

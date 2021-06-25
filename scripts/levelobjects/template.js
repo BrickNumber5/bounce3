@@ -57,6 +57,10 @@ class LevelObject {
     
     // ! NOT YET USED BY GAME
   }
+  
+  copy( ) {
+    // This function should return a data-accurate but unlinked copy of the level object
+  }
 }
 
 // levelObjectTypes.push( ... )
