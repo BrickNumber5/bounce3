@@ -8,7 +8,7 @@
    - [x] Arc Collider angle limiting
    - [x] Trails
    - [ ] Level Editor Overview
-   - [ ] Restart Button
+   - [x] Restart Button
    - [ ] Pausing
      - [ ] By Button
      - [ ] Auto on unfocus
@@ -20,7 +20,11 @@
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
    - [ ] Parallax Starfield Background
    - [ ] Polygon Level Object
+   - [ ] Goaltape Level Object
    - [ ] Levelpack editor
+   - [ ] Copy to Custom Button
    - [ ] Local Storage Saving of Custom Levels
+   - [ ] Death by Void
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
+   - [ ] Space partitioning by chunks for rendering and physics speedup

@@ -332,3 +332,28 @@ body {
   height: 100vh;
   overflow: hidden;
 }
+
+.restartbutton {
+  position: absolute;
+  top: 0.5rem;
+  left: 7.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/redo-alt-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.restartbutton:hover, .restartbutton:focus {
+  filter: brightness(1000%);
+  animation: spin 1.5s infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);   }
+   33% { transform: rotate(360deg); }
+  100% { transform: rotate(360deg); }
+}
