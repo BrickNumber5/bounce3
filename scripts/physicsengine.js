@@ -9,6 +9,17 @@ const DASHSTRENGTH = 0.01
 
 function physicsStep( elapsedTime ) {
   player.va = Math.atan2( player.vy, player.vx )
+  
+  // Speed Caps
+  if ( player.vx ** 2 + player.vy ** 2 <= 0.00025 ** 2 ) {
+    player.vx = 0
+    player.vy = 0
+  }
+  if ( player.vx ** 2 + player.vy ** 2 > 0.05 ** 2 ) {
+    player.vx = 0.05 * Math.cos( player.va )
+    player.vy = 0.05 * Math.sin( player.va )
+  }
+  
   movePlayer( player.x, player.y, player.x + player.vx * elapsedTime, player.y + player.vy * elapsedTime )
   
   // Gravity
@@ -17,10 +28,6 @@ function physicsStep( elapsedTime ) {
   // Friction
   player.vx *= FRICTION ** elapsedTime
   player.vy *= FRICTION ** elapsedTime
-  
-  // Speed Caps
-  if ( Math.abs( player.vx ) <= 0.001 ) player.vx = 0
-  if ( Math.abs( player.vy ) <= 0.001 ) player.vy = 0
 }
 
 function movePlayer( sx, sy, ex, ey ) {
@@ -146,6 +153,9 @@ class ArcCollider extends Collider {
     if ( ( this.cx - sx ) ** 2 + ( this.cy - sy ) ** 2 <= ( 1 + this.r ) ** 2 ) return { collided: false }
     let res = segmentCircleIntersection( sx, sy, ex, ey, this.cx, this.cy, this.r + 1 )
     if( !res.b ) return { collided: false }
+    // This looks like it should be !angleBetweenAngles, but angleBetweenAngles actually uses what is for this function the wrong arc
+    // So it's actually the inverse
+    if ( angleBetweenAngles( Math.atan2( res.y - this.cy, res.x - this.cx ), this.sa, this.ea ) ) return { collided: false }
     sx = res.x
     sy = res.y
     let dx = ( this.cx - sx ),

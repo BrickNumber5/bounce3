@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha015",
+  NUMBER      : "v3.0.0alpha016",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -159,6 +159,14 @@ function angleDifference( a1, a2 ) {
   let a = a1 - a2
   a = mod( a + Math.PI, 2 * Math.PI ) - Math.PI
   return a
+}
+
+function angleBetweenAngles( a, b, c ) {
+  a -= b
+  c -= b
+  a = mod( a, 2 * Math.PI )
+  c = mod( c, 2 * Math.PI )
+  return a > 0 && a <= c
 }
 
 function lerp( a, b, t ) {
