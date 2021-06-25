@@ -9,9 +9,9 @@
    - [x] Trails
    - [ ] Level Editor Overview
    - [x] Restart Button
-   - [ ] Pausing
-     - [ ] By Button
-     - [ ] Auto on unfocus
+   - [x] Pausing
+     - [x] By Button
+     - [x] Auto on unfocus
    - [ ] .bounce file format
      - [ ] Technical Description
      - [ ] Processor
