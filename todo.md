@@ -13,7 +13,7 @@
      - [x] By Button
      - [x] Auto on unfocus
    - [ ] .bounce file format
-     - [ ] Technical Description
+     - [x] Technical(ish) Description
      - [ ] Processor
    - [x] Add license
    - [ ] Touch Support
@@ -32,3 +32,5 @@
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
+   - [ ] Make trails framerate independent
+   - [ ] Add favicon
