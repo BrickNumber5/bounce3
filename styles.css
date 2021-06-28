@@ -132,6 +132,7 @@ body {
   font-weight: 900;
   font-size: 3rem;
   margin-top: 2rem;
+  overflow-wrap: break-word;
 }
 
 .leveldisc {
@@ -143,6 +144,7 @@ body {
   font-size: 1.5rem;
   font-style: italic;
   color: var(--fg-darker);
+  overflow-wrap: break-word;
 }
 
 .levelauthor {

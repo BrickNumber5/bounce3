@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="styles.css"></link>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Grandstander&display=swap" rel="stylesheet">
+    <script src="dotbounce/dotbounce.js"></script>
     <script src="scripts/util.js"></script>
     <script src="scripts/uimanager.js"></script>
     <script src="scripts/levelmanager.js"></script>
@@ -14,7 +15,6 @@
     <script src="scripts/renderer.js"></script>
     <script src="scripts/starfield.js"></script>
     <script src="scripts/physicsengine.js"></script>
-    <script src="dotbounce/dotbounce.js"></script>
   </head>
   <body>
     <div class="titlescreen">
@@ -31,10 +31,10 @@
           <div class="levels" id="customlevels">
           </div>
           <div class="levelstoolbar">
-            <button class="iconbutton new" onclick="newLevel( )"></button>
-            <button class="iconbutton newpack" onclick="newLevelPack( )"></button>
-            <button class="iconbutton upload"></button>
-            <button class="iconbutton archive"></button>
+            <button class="iconbutton new" onclick="newLevel( );this.blur( )"></button>
+            <button class="iconbutton newpack" onclick="newLevelPack( );this.blur( )"></button>
+            <button class="iconbutton upload" onclick="uploadLevel( );this.blur( )"></button>
+            <button class="iconbutton archive" onclick="archiveCustomLevels( );this.blur( )"></button>
           </div>
         </div>
       </div>
