@@ -12,9 +12,9 @@
    - [x] Pausing
      - [x] By Button
      - [x] Auto on unfocus
-   - [ ] .bounce file format
+   - [x] .bounce file format
      - [x] Technical(ish) Description
-     - [ ] Processor
+     - [x] Processor
    - [x] Add license
    - [ ] Touch Support
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
