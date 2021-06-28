@@ -19,9 +19,6 @@ function renderGame( ) {
   // Starfield
   drawStarfield( cnvs, ctx )
   
-  renderObject( Segment )
-  
-  
   trail.shift( )
   trail.push( { x: player.x, y: player.y } )
   drawTrail( cnvs, ctx )
@@ -31,6 +28,10 @@ function renderGame( ) {
   ctx.beginPath( )
   ctx.arc( player.x, player.y, 1, 0, 2 * Math.PI )
   ctx.fill( )
+  
+  renderObject( GoalTape )
+  
+  renderObject( Segment )
   
   // Debug
   if ( SHOWDEBUGINFO ) {

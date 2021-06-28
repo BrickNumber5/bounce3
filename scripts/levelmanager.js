@@ -50,6 +50,17 @@ class Level extends LevelLike {
   copy( ) {
     return new Level( this.title, this.disc, this.author, this.completed, this.objects.map( obj => obj.copy( ) ) )
   }
+  
+  markCompleted( ) {
+    this.completed = true
+    if ( this.pack ) {
+      updateLevelUIComponent( this.pack )
+    } else {
+      updateLevelUIComponent( this )
+    }
+    if ( this.pack ) this.pack.checkCompleted( )
+    saveCustomLevels( )
+  }
 }
 
 dotbounce.globalSpecialDictionary.push( {
@@ -76,6 +87,18 @@ class LevelPack extends LevelLike {
   
   copy( ) {
     return new LevelPack( this.title, this.disc, this.author, this.completed, this.levels.map( l => l.copy( ) ) )
+  }
+  
+  checkCompleted( ) {
+    for ( let i = 0; i < this.levels.length; i++ ) {
+      if ( !this.levels[ i ].completed ) {
+        this.completed = false
+        updateLevelUIComponent( this )
+        return
+      }
+    }
+    this.completed = true
+    updateLevelUIComponent( this )
   }
 }
 
@@ -127,12 +150,41 @@ function importLevel( levellike, isBuiltin = false, autoSave = true ) {
   }
 }
 
+const UserLevelsSpecialDictionary = new dotbounce.SpecialDictionary(
+  {
+    stringIndex: "Level",
+    parserFunction: ( title, disc, author, objects, completed ) => new Level(
+      makeTrimmedString( title, MAXTITLELENGTH ),
+      makeTrimmedString( disc, MAXDISCLENGTH ),
+      makeTrimmedString( author, MAXAUTHORLENGTH ),
+      assertTypeof( completed ?? false, "boolean" ),
+      assertInstanceof( objects, Array ).map( obj => assertInstanceof( obj, LevelObject ) )
+    ),
+    test: obj => obj instanceof Level,
+    getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects, obj.completed ]
+  },
+  {
+    stringIndex: "LevelPack",
+    parserFunction: ( title, disc, author, levels, completed ) => new LevelPack(
+      makeTrimmedString( title, MAXTITLELENGTH ),
+      makeTrimmedString( disc, MAXDISCLENGTH ),
+      makeTrimmedString( author, MAXAUTHORLENGTH ),
+      assertTypeof( completed ?? false, "boolean" ),
+      assertInstanceof( levels, Array ).map( level => assertInstanceof( level, Level ) )
+    ),
+    test: obj => obj instanceof LevelPack,
+    getValues: obj => [ obj.title, obj.disc, obj.author, obj.levels, obj.completed ]
+  }
+)
+
 function saveCustomLevels( ) {
-  localStorage.setItem( CUSTOMLEVELSHANDLE, arrayBufferToBinaryString( dotbounce.encode( [ ...customLevels ] ) ) )
+  localStorage.setItem( CUSTOMLEVELSHANDLE, arrayBufferToBinaryString( dotbounce.encode( [ ...customLevels ], UserLevelsSpecialDictionary ) ) )
 }
 
 function loadCustomLevels( ) {
-  dotbounce.parse( binaryStringToArrayBuffer( localStorage.getItem( CUSTOMLEVELSHANDLE ) ) ).forEach( levellike => importLevel( levellike, false, false ) )
+  dotbounce.parse( binaryStringToArrayBuffer( localStorage.getItem( CUSTOMLEVELSHANDLE ) ), UserLevelsSpecialDictionary ).forEach(
+    levellike => importLevel( levellike, false, false )
+  )
   saveCustomLevels( )
 }
 

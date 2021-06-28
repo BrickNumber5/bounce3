@@ -9,7 +9,8 @@ let player = {
   y:    0,
   vx:   0,
   vy:   0,
-  dash: false
+  dash: false,
+  goalTimer: Infinity
 }
 
 let dashInterfaceData = {
@@ -28,6 +29,10 @@ function gameTick( ) {
   if ( !PAUSED ) {
     physicsStep( elapsedTime )
     renderGame( )
+    player.goalTimer -= elapsedTime
+    if ( player.goalTimer <= 0 ) {
+      clearLevel( )
+    }
   }
 }
 
@@ -47,11 +52,21 @@ function startNextLevel( ) {
   spawnPlayer( )
 }
 
+function clearLevel( ) {
+  currentLevel.markCompleted( )
+  if ( levelsQueue.length === 0 ) {
+    stopGame( )
+  } else {
+    startNextLevel( )
+  }
+}
+
 function spawnPlayer( spawnPoint = { x: 0, y: 0 }, first = true ) {
   player.x  = spawnPoint.x
   player.y  = spawnPoint.y
   player.vx = player.vy = 0
   player.dash = false
+  player.goalTimer = Infinity
   currentLevel.objects.forEach( lo => lo.onSpawn( ) )
   currentLevel.objects.forEach( lo => first ? lo.onSpawnFirst( ) : onSpawnCheckPoint( ) )
   trail.shift( )

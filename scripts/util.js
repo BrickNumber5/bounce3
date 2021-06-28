@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha023",
+  NUMBER      : "v3.0.0alpha024",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -48,7 +48,11 @@ const COLOR = {
     fill: "#8accff"
   },
   trail: [ "#ffffff", "#8accff" ],
-  star: [ "#ff7b7b", "#fffde0" ]
+  star: [ "#ff7b7b", "#fffde0" ],
+  goalTape: {
+    black: "#000",
+    white: "#fff"
+  }
 }
 
 const levelObjectTypes = [ ]
@@ -247,7 +251,7 @@ function assertTypeof( object, type ) {
 
 function assertInstanceof( object, _class ) {
   if ( !( object instanceof _class ) ) {
-    throw new Error( `Expected and instance of ${ _class.name }, found ${ object }` )
+    throw new Error( `Expected an instance of ${ _class.name }, found ${ object }` )
   }
   return object
 }
