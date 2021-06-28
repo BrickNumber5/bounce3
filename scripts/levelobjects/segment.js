@@ -49,4 +49,11 @@ class Segment extends LevelObject {
   }
 }
 
+dotbounce.globalSpecialDictionary.push( {
+  stringIndex: "Segment",
+  parserFunction: ( x1, y1, x2, y2 ) => new Segment( makeInteger( x1 ), makeInteger( y1 ), makeInteger( x2 ), makeInteger( y2 ) ),
+  test: obj => obj instanceof Segment,
+  getValues: obj => [ obj.x1, obj.y1, obj.x2, obj.y2 ]
+} )
+
 levelObjectTypes.push( Segment )

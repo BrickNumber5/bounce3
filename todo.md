@@ -23,14 +23,19 @@
    - [ ] Goaltape Level Object
    - [ ] Levelpack editor
    - [x] Copy to Custom Button
-   - [ ] Local Storage Saving of Custom Levels
+   - [x] Local Storage Saving of Custom Levels
    - [ ] Death by Void
-   - [ ] Download, Upload, and Archive buttons
-     - [ ] Download
-     - [ ] Upload
-     - [ ] Archive ( Download All )
+   - [x] Download, Upload, and Archive buttons
+     - [x] Download
+     - [x] Upload
+     - [x] Archive ( Download All )
+   - [ ] Delete Confirmation Box
+   - [ ] Level Upload Fail Warning Indicator
+   - [ ] Archive Upload Confirmation Box
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent
    - [ ] Add favicon
+ - Future
+   - [ ] Level Pallate Editor

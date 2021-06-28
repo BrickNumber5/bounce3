@@ -63,4 +63,11 @@ class LevelObject {
   }
 }
 
+//dotbounce.globalSpecialDictionary.push( {
+//  stringIndex: "...",
+//  parserFunction: ... => new ...( ... ),
+//  test: obj => obj instanceof ...,
+//  getValues: obj => [ ... ]
+//} )
+
 // levelObjectTypes.push( ... )
