@@ -8,26 +8,31 @@ const FRICTION = 0.9999 // This is the amount of velocity maintained per ms
 const DASHSTRENGTH = 0.01
 
 function physicsStep( elapsedTime ) {
-  player.va = Math.atan2( player.vy, player.vx )
-  
-  // Speed Caps
-  if ( player.vx ** 2 + player.vy ** 2 <= 0.00025 ** 2 ) {
-    player.vx = 0
-    player.vy = 0
+  if ( player.goalTimer < Infinity ) {
+    player.x += 1.4 * player.vx * elapsedTime
+    player.y += 1.4 * player.vy * elapsedTime
+  } else {
+    player.va = Math.atan2( player.vy, player.vx )
+    
+    // Speed Caps
+    if ( player.vx ** 2 + player.vy ** 2 <= 0.00025 ** 2 ) {
+      player.vx = 0
+      player.vy = 0
+    }
+    if ( player.vx ** 2 + player.vy ** 2 > 0.05 ** 2 ) {
+      player.vx = 0.05 * Math.cos( player.va )
+      player.vy = 0.05 * Math.sin( player.va )
+    }
+    
+    movePlayer( player.x, player.y, player.x + player.vx * elapsedTime, player.y + player.vy * elapsedTime )
+    
+    // Gravity
+    player.vy += GRAVITY * elapsedTime
+    
+    // Friction
+    player.vx *= FRICTION ** elapsedTime
+    player.vy *= FRICTION ** elapsedTime
   }
-  if ( player.vx ** 2 + player.vy ** 2 > 0.05 ** 2 ) {
-    player.vx = 0.05 * Math.cos( player.va )
-    player.vy = 0.05 * Math.sin( player.va )
-  }
-  
-  movePlayer( player.x, player.y, player.x + player.vx * elapsedTime, player.y + player.vy * elapsedTime )
-  
-  // Gravity
-  player.vy += GRAVITY * elapsedTime
-  
-  // Friction
-  player.vx *= FRICTION ** elapsedTime
-  player.vy *= FRICTION ** elapsedTime
 }
 
 function movePlayer( sx, sy, ex, ey ) {
@@ -62,6 +67,7 @@ function movePlayer( sx, sy, ex, ey ) {
       player.vy = nearestCol.nvy
       player.va = Math.atan2( player.vy, player.vx )
       player.dash = true
+      if ( nearestCol.dfn ) nearestCol.dfn( )
     }
   }
   player.x = ex
@@ -185,6 +191,52 @@ class ArcCollider extends Collider {
     ctx.lineJoin = "round"
     ctx.beginPath( )
     ctx.arc( this.cx, this.cy, this.r, this.sa, this.ea, true )
+    ctx.stroke( )
+  }
+}
+
+class TriggerCollider extends Collider {
+  constructor( ) {
+    super( )
+  }
+}
+
+class SegmentTriggerCollider extends TriggerCollider {
+  constructor( x1, y1, x2, y2, fn ) {
+    super( )
+    this.x1 = x1
+    this.y1 = y1
+    this.x2 = x2
+    this.y2 = y2
+    this.fn = fn
+  }
+  
+  collisionOnPath( sx, sy, ex, ey ) {
+    let res = segmentSegmentIntersection( sx, sy, ex, ey, this.x1, this.y1, this.x2, this.y2 )
+    if ( !res.b ) return { collided: false }
+    return {
+      collided: true,
+      nsx: res.x,
+      nsy: res.y,
+      nex: ex,
+      ney: ey,
+      nvx: player.vx,
+      nvy: player.vy,
+      dfn: this.fn
+    }
+  }
+  
+  render( cnvs, ctx ) {
+    ctx.lineWidth = 1 / 10
+    ctx.strokeStyle = COLOR.debugObject
+    ctx.lineCap = "round"
+    ctx.lineJoin = "round"
+    ctx.beginPath( )
+    ctx.moveTo( this.x1, this.y1 )
+    ctx.lineTo( this.x2, this.y2 )
+    ctx.stroke( )
+    ctx.beginPath( )
+    ctx.arc( this.x1 + ( this.x2 - this.x1 ) / 2, this.y1 + ( this.y2 - this.y1 ) / 2, 0.5, 0, 2 * Math.PI )
     ctx.stroke( )
   }
 }

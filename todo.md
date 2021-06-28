@@ -20,7 +20,7 @@
    - [ ] Keyboard Shortcuts for various buttons in play and edit mode
    - [x] Parallax Starfield Background
    - [ ] Polygon Level Object
-   - [ ] Goaltape Level Object
+   - [x] Goaltape Level Object
    - [ ] Levelpack editor
    - [x] Copy to Custom Button
    - [x] Local Storage Saving of Custom Levels
@@ -37,5 +37,6 @@
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent
    - [ ] Add favicon
+   - [ ] Make the font work properly
  - Future
-   - [ ] Level Pallate Editor
+   - [ ] Level Palette Editor
