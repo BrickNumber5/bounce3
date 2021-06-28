@@ -21,16 +21,67 @@ const dotbounce = { }
         return null
       }
       if ( typeId === 0x10 ) {
-        return
+        let obj = 0n
+        while( true ) {
+          insureAvailable( 1 )
+          let currentByte = view.getUint8( offset ),
+                   topBit = currentByte >> 7,
+                     rest = currentByte & 0x7F
+          offset++
+          obj <<= 7n
+          obj |= BigInt( rest )
+          if ( !topBit ) break
+        }
+        if ( Number.isSafeInteger( Number( obj ) ) ) {
+          return Number( obj )
+        }
+        return obj
       }
       if ( typeId > 0x10 && typeId <= 0x18 ) {
-        return
+        let len = typeId - 0x10
+        insureAvailable( len )
+        let obj = 0n
+        for ( let i = 0; i < len; i++ ) {
+          obj <<= 8n
+          obj |= BigInt( view.getUint8( offset ) )
+          offset++
+        }
+        if ( Number.isSafeInteger( Number( obj ) ) ) {
+          return Number( obj )
+        }
+        return obj
       }
       if ( typeId === 0x20 ) {
-        return
+        let zigzagObj = 0n
+        while( true ) {
+          insureAvailable( 1 )
+          let currentByte = view.getUint8( offset ),
+                   topBit = currentByte >> 7,
+                     rest = currentByte & 0x7F
+          offset++
+          zigzagObj <<= 7n
+          zigzagObj |= BigInt( rest )
+          if ( !topBit ) break
+        }
+        let obj = zigzagObj % 2n === 0n ? zigzagObj / 2n : -( zigzagObj + 1n ) / 2n
+        if ( Number.isSafeInteger( Number( obj ) ) ) {
+          return Number( obj )
+        }
+        return obj
       }
       if ( typeId > 0x20 && typeId <= 0x28 ) {
-        return
+        let len = typeId - 0x20
+        insureAvailable( len )
+        let obj = 0n
+        for ( let i = 0; i < len; i++ ) {
+          obj <<= 8n
+          obj |= BigInt( i == 0 ? view.getInt8( offset ) : view.getUint8( offset ) )
+          offset++
+        }
+        if ( Number.isSafeInteger( Number( obj ) ) ) {
+          return Number( obj )
+        }
+        return obj
       }
       if ( typeId === 0x30 ) {
         insureAvailable( 4 )
