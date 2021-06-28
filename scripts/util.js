@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha022",
+  NUMBER      : "v3.0.0alpha023",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -53,6 +53,12 @@ const COLOR = {
 
 const levelObjectTypes = [ ]
 
+const MAXTITLELENGTH  = 75
+const MAXDISCLENGTH   = 350
+const MAXAUTHORLENGTH = 35
+
+const CUSTOMLEVELSHANDLE = "[Bounce3:UsrSave/CustomLevels]"
+
 // Creates strings of the form "XXXX-XXXX-XXXX-XXXX" where X is a random hex digit
 let usedStringUUIDS = new Set( ) // To insure no UUID reusage is possible
 function mkStringUUID( prefix = "" ) {
@@ -78,6 +84,7 @@ window.addEventListener( "load", ( ) => {
   fullscreenCanvas( canvases.temp )
   canvases.tempctx = canvases.temp.getContext( "2d" )
   setupGamemanager( )
+  loadCustomLevels( )
   setInterval( tick, 25 )
 } )
 
@@ -200,4 +207,77 @@ function lerpColor( a, b, t ) {
     g: Math.round( lerp( ca.g, cb.g, t ) ),
     b: Math.round( lerp( ca.b, cb.b, t ) )
   } )
+}
+
+function downloadFile( name, arrayBuffer ) {
+  // Requires and consumes a user-gesture for .click( )
+  let blob = new Blob( [ arrayBuffer ] )
+  let a = document.createElement( "a" )
+  a.href = URL.createObjectURL( blob )
+  a.download = name
+  a.click( )
+}
+
+function uploadFile( callback ) {
+  // Requires and consumes a user-gesture for .click( )
+  let inp = document.createElement( "input" )
+  inp.type = "file"
+  inp.accept = ".bounce"
+  inp.multiple = true
+  inp.onchange = ( ) => {
+    let files = inp.files, fileBuffers = [ ]
+    const reader = new FileReader( )
+    reader.addEventListener( "load", ( ) => {
+      callback( reader.result )
+      i++
+      if ( i < files.length ) { reader.readAsArrayBuffer( files[ i ] ) }
+    } )
+    let i = 0
+    reader.readAsArrayBuffer( files[ i ] )
+  }
+  inp.click( )
+}
+
+function assertTypeof( object, type ) {
+  if ( typeof object !== type ) {
+    throw new Error( `Expected ${ type }, found ${ object }` )
+  }
+  return object
+}
+
+function assertInstanceof( object, _class ) {
+  if ( !( object instanceof _class ) ) {
+    throw new Error( `Expected and instance of ${ _class.name }, found ${ object }` )
+  }
+  return object
+}
+
+function makeInteger( object ) {
+  if ( typeof object !== "number" ) {
+    if ( typeof object !== "bigint" ) {
+      throw new Error( `Expected number or bigint, found ${ object }` )
+    }
+    return Math.round( Number( object ) )
+  }
+  return Math.round( object )
+}
+
+function makeTrimmedString( object, maxLength ) {
+  return object.toString( ).substring( 0, maxLength )
+}
+
+function arrayBufferToBinaryString( buffer ) {
+  let string = "", bytes = new Uint8Array( buffer )
+  for ( let i = 0; i < bytes.length; i++ ) {
+    string += String.fromCharCode( bytes[ i ] )
+  }
+  return string
+}
+
+function binaryStringToArrayBuffer( string ) {
+  let buffer = new ArrayBuffer( string.length ), bytes = new Uint8Array( buffer )
+  for ( let i = 0; i < string.length; i++ ) {
+    bytes[ i ] = string.charCodeAt( i )
+  }
+  return buffer
 }
