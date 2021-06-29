@@ -38,5 +38,6 @@
    - [ ] Make trails framerate independent
    - [ ] Add favicon
    - [x] Make the font work properly
+   - [ ] Win / Death Fadeout
  - Future
    - [ ] Level Palette Editor

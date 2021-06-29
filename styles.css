@@ -423,3 +423,52 @@ body {
    50% { transform: translate( -50%, -50% ) scale(1.05,1.05); }
   100% { transform: translate( -50%, -50% ) scale(1,1);       }
 }
+
+.editorscreen {
+  display: block;
+  background-color: #358;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.editorToolbar {
+  position: absolute;
+  left: 0;
+  top: 7rem;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 1rem;
+  width: 11rem;
+  padding: 1rem;
+}
+
+.editorToolButton {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.editorToolButton:not(:disabled):where(:hover, :focus) {
+  filter: brightness(70%);
+}
+
+.editorToolButton:disabled {
+  filter: brightness(60%);
+  cursor: default;
+}
+
+.editorToolButton[data-tool="pan"]      { background-image: url(assets/icons/hand-paper-solid.svg); }
+.editorToolButton[data-tool="zoom"]     { background-image: url(assets/icons/search-solid.svg); }
+.editorToolButton[data-tool="adjust"]   { background-image: url(assets/icons/mouse-pointer-solid.svg); }
+.editorToolButton[data-tool="segment"]  { background-image: url(assets/icons/project-diagram-solid.svg); }
+.editorToolButton[data-tool="polygon"]  { background-image: url(assets/icons/draw-polygon-solid.svg); }
+.editorToolButton[data-tool="goaltape"] { background-image: url(assets/icons/flag-checkered-solid.svg); }
+.editorToolButton[data-tool="eraser"]   { background-image: url(assets/icons/eraser-solid.svg); }
+.editorToolButton[data-tool="move"]     { background-image: url(assets/icons/arrows-alt-solid.svg); }
+.editorToolButton[data-tool="rotate"]   { background-image: url(assets/icons/sync-alt-solid.svg); }
+.editorToolButton[data-tool="reflect"]  { background-image: url(assets/icons/exchange-alt-solid.svg); }
