@@ -19,7 +19,7 @@ class LevelLike {
   }
   
   edit( ) {
-    // ...
+    editLevel( this )
   }
   
   download( ) {

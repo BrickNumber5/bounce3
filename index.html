@@ -16,6 +16,7 @@
     <script src="scripts/renderer.js"></script>
     <script src="scripts/starfield.js"></script>
     <script src="scripts/physicsengine.js"></script>
+    <script src="scripts/editormanager.js"></script>
   </head>
   <body>
     <div class="titlescreen">
@@ -23,7 +24,7 @@
       <h2 class="subtitle"></h2>
       <div class="leveltypescontainer">
         <div>
-          <h3 class="typename">Builtin Levels</h3>
+          <h3 class="typename">Built-in Levels</h3>
           <div class="levels" id="builtinlevels">
           </div>
         </div>
@@ -49,6 +50,19 @@
     </div>
     <div class="editorscreen" style="display: none;">
       <canvas class="mainrenderer"></canvas>
+      <button class="backbutton" onclick="closeEditor( );"></button>
+      <div class="editorToolbar">
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="pan"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="zoom"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="adjust" disabled></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="segment"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="polygon"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="goaltape"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="eraser"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="move"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="rotate"></button>
+        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="reflect"></button>
+      </div>
     </div>
     <canvas class="temprenderer" style="display: none;" ></canvas>
   </body>
