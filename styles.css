@@ -141,6 +141,7 @@ body {
   border-left: solid var(--fg-darker) 0.5rem;
   padding-left: 1rem;
   font-family: 'Grandstander', sans-serif;
+  font-weight: 650;
   font-size: 1.5rem;
   font-style: italic;
   color: var(--fg-darker);
@@ -150,6 +151,7 @@ body {
 .levelauthor {
   display: block;
   font-family: 'Grandstander', sans-serif;
+  font-weight: 550;
   font-size: 1.5rem;
   margin-top: 0.25rem;
   text-align: right;
