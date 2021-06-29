@@ -37,6 +37,6 @@
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent
    - [ ] Add favicon
-   - [ ] Make the font work properly
+   - [x] Make the font work properly
  - Future
    - [ ] Level Palette Editor
