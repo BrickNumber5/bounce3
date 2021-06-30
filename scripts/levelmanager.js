@@ -42,9 +42,10 @@ class LevelLike {
 }
 
 class Level extends LevelLike {
-  constructor ( title = "Untited Level", disc = "", author = "", completed = false, objects = [ ] ) {
+  constructor ( title = "Untited Level", disc = "", author = "", completed = false, objects = [ ], spawnPoint = { x: 0, y: 0 } ) {
     super( title, disc, author, completed )
     this.objects = objects
+    this.spawnPoint = spawnPoint
   }
   
   copy( ) {
@@ -65,15 +66,16 @@ class Level extends LevelLike {
 
 dotbounce.globalSpecialDictionary.push( {
   stringIndex: "Level",
-  parserFunction: ( title, disc, author, objects ) => new Level(
+  parserFunction: ( title, disc, author, objects, spawnPoint ) => new Level(
     makeTrimmedString( title, MAXTITLELENGTH ),
     makeTrimmedString( disc, MAXDISCLENGTH ),
     makeTrimmedString( author, MAXAUTHORLENGTH ),
     false,
-    assertInstanceof( objects, Array ).map( obj => assertInstanceof( obj, LevelObject ) )
+    assertInstanceof( objects, Array ).map( obj => assertInstanceof( obj, LevelObject ) ),
+    { x: makeInteger( ( spawnPoint ?? { x: 0 } ).x ), y: makeInteger( ( spawnPoint ?? { y: 0 } ).y ) }
   ),
   test: obj => obj instanceof Level,
-  getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects ]
+  getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects, obj.spawnPoint ]
 } )
 
 // A LevelPack is largely just a wrapper around an array of levels with some convience functions 
@@ -153,15 +155,16 @@ function importLevel( levellike, isBuiltin = false, autoSave = true ) {
 const UserLevelsSpecialDictionary = new dotbounce.SpecialDictionary(
   {
     stringIndex: "Level",
-    parserFunction: ( title, disc, author, objects, completed ) => new Level(
+    parserFunction: ( title, disc, author, objects, completed, spawnPoint ) => new Level(
       makeTrimmedString( title, MAXTITLELENGTH ),
       makeTrimmedString( disc, MAXDISCLENGTH ),
       makeTrimmedString( author, MAXAUTHORLENGTH ),
       assertTypeof( completed ?? false, "boolean" ),
-      assertInstanceof( objects, Array ).map( obj => assertInstanceof( obj, LevelObject ) )
+      assertInstanceof( objects, Array ).map( obj => assertInstanceof( obj, LevelObject ) ),
+      { x: makeInteger( ( spawnPoint ?? { x: 0 } ).x ), y: makeInteger( ( spawnPoint ?? { y: 0 } ).y ) }
     ),
     test: obj => obj instanceof Level,
-    getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects, obj.completed ]
+    getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects, obj.completed, obj.spawnPoint ]
   },
   {
     stringIndex: "LevelPack",

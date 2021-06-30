@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha027",
+  NUMBER      : "v3.0.0alpha028",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -52,6 +52,10 @@ const COLOR = {
   goalTape: {
     black: "#000",
     white: "#fff"
+  },
+  editor: {
+    spawnPoint: "#4cc",
+    grid: "#99AAC3"
   }
 }
 
@@ -88,6 +92,7 @@ window.addEventListener( "load", ( ) => {
   fullscreenCanvas( canvases.temp )
   canvases.tempctx = canvases.temp.getContext( "2d" )
   setupGamemanager( )
+  setupEditor( )
   loadCustomLevels( )
   setInterval( tick, 25 )
 } )
@@ -119,7 +124,7 @@ function tick( ) {
   if ( generalState.mode == "game" ) {
     gameTick( )
   } else if ( generalState.mode == "editor" ) {
-    
+    editorTick( )
   }
 }
 
