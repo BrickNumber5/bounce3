@@ -41,8 +41,6 @@ class LevelObject {
   
   static renderAllEditor( cnvs, ctx, objs ) {
     // Same as renderAll but runs in the editor
-    
-    // ! NOT YET USED BY GAME
   }
   
   onTick( elapsedTime ) {
