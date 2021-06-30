@@ -441,6 +441,8 @@ body {
   gap: 1rem;
   width: 11rem;
   padding: 1rem;
+  background-color: #3588;
+  box-shadow: #3588 0 0 0.5rem 0.5rem
 }
 
 .editorToolButton {
