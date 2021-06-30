@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha028",
+  NUMBER      : "v3.0.0alpha029",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -22,6 +22,7 @@ const generalState = {
   exitMode( ) {
     this.mode = this.prevMode
     this.prevMode = "menu"
+    editorSetTool( "adjust" )
   }
 }
 

@@ -22,11 +22,15 @@ function editLevel( levellike ) {
     currentLevel = levellike
     generalState.mode = "editor"
     editorSetTool( "adjust" )
+    editorCamera.x = 0
+    editorCamera.y = 0
+    editorCamera.s = 1
     levelObjectTypes.forEach( lot => lot.currentLevelInstances = currentLevel.objects.filter( lo => lo instanceof lot ) )
   }
 }
 
 function closeEditor( ) {
+  saveCustomLevels( )
   generalState.exitMode( )
 }
 
@@ -56,18 +60,30 @@ function editorMouseDown( e ) {
   editorMouseDownCurrent = true
   if ( e.buttons & 4 ) {
     panning = true
-    editorTools[ "pan" ]?.mouseDown?.( ( e.clientX / UNITSIZE ) / editorCamera.s, ( e.clientY / -UNITSIZE ) / editorCamera.s )
+    editorTools[ "pan" ]?.mouseDown?.(
+      ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+      ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+    )
   } else {
-    editorTools[ editorTool ]?.mouseDown?.( ( e.clientX / UNITSIZE ) / editorCamera.s, ( e.clientY / -UNITSIZE ) / editorCamera.s )
+    editorTools[ editorTool ]?.mouseDown?.(
+      ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+      ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+    )
   }
 }
 
 function editorMouseMove( e ) {
   if ( editorMouseDownCurrent ) {
     if ( panning ) {
-      editorTools[ "pan" ]?.mouseDrag?.( ( e.clientX / UNITSIZE ) / editorCamera.s, ( e.clientY / -UNITSIZE ) / editorCamera.s )
+      editorTools[ "pan" ]?.mouseDrag?.(
+        ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+        ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+      )
     } else {
-      editorTools[ editorTool ]?.mouseDrag?.( ( e.clientX / UNITSIZE ) / editorCamera.s, ( e.clientY / -UNITSIZE ) / editorCamera.s )
+      editorTools[ editorTool ]?.mouseDrag?.(
+        ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+        ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+      )
     }
   }
 }
@@ -75,7 +91,10 @@ function editorMouseMove( e ) {
 function editorMouseUp( e ) {
   editorMouseDownCurrent = false
   panning = false
-  editorTools[ editorTool ]?.mouseUp?.( ( e.clientX / UNITSIZE ) / editorCamera.s, ( e.clientY / -UNITSIZE ) / editorCamera.s )
+  editorTools[ editorTool ]?.mouseUp?.(
+    ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+    ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+  )
 }
 
 function editorMouseCancel( ) {
@@ -96,15 +115,35 @@ const editorTools = {
     mouseDrag( x, y ) {
       editorCamera.x -= x - editorTools.pan.px
       editorCamera.y -= y - editorTools.pan.py
-      editorTools.pan.px = x
-      editorTools.pan.py = y
     }
   },
   zoom: { /* ... */ },
   adjust: { /* ... */ },
-  segment: { /* ... */ },
+  segment: {
+    mouseDown( x, y ) {
+      let obj = new Segment( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
+      currentLevel.objects.push( obj )
+      Segment.currentLevelInstances.push( obj )
+      editorTools.segment.obj = obj
+    },
+    mouseDrag( x, y ) {
+      editorTools.segment.obj.x2 = Math.round( x )
+      editorTools.segment.obj.y2 = Math.round( y )
+    }
+  },
   polygon: { /* ... */ },
-  goaltape: { /* ... */ },
+  goaltape: {
+    mouseDown( x, y ) {
+      let obj = new GoalTape( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
+      currentLevel.objects.push( obj )
+      GoalTape.currentLevelInstances.push( obj )
+      editorTools.goaltape.obj = obj
+    },
+    mouseDrag( x, y ) {
+      editorTools.goaltape.obj.x2 = Math.round( x )
+      editorTools.goaltape.obj.y2 = Math.round( y )
+    }
+  },
   eraser: { /* ... */ },
   move: { /* ... */ },
   rotate: { /* ... */ },
