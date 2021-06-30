@@ -61,7 +61,8 @@ function clearLevel( ) {
   }
 }
 
-function spawnPlayer( spawnPoint = { x: 0, y: 0 }, first = true ) {
+function spawnPlayer( spawnPoint = null, first = true ) {
+  spawnPoint ??= currentLevel.spawnPoint
   player.x  = spawnPoint.x
   player.y  = spawnPoint.y
   player.vx = player.vy = 0

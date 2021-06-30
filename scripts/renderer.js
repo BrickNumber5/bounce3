@@ -6,6 +6,8 @@
 const TRAILLENGTH = 45
 let trail = Array.from( { length: TRAILLENGTH }, ( ) => ( { x: null, y: null } ) )
 
+let spawnSpinnerTimer = 0
+
 function renderGame( ) {
   // Setup
   let cnvs = canvases.game, ctx = canvases.gamectx, w = canvases.w, h = canvases.h
@@ -42,8 +44,80 @@ function renderGame( ) {
   renderDashIndicator( cnvs, ctx )
 }
 
+function renderLevelInEditor( ) {
+   // Setup
+  let cnvs = canvases.editor, ctx = canvases.editorctx, w = canvases.w, h = canvases.h
+  ctx.setTransform( 1, 0, 0, 1, 0, 0 )
+  ctx.clearRect( 0, 0, w, h )
+  ctx.translate( w / 2, h / 2 )
+  ctx.scale( UNITSIZE, -UNITSIZE )
+  ctx.translate( -editorCamera.x * editorCamera.s, -editorCamera.y * editorCamera.s )
+  ctx.scale( editorCamera.s, editorCamera.s )
+  let renderObject = renderLevelObjectTypeEditor.bind( renderLevelObjectTypeEditor, cnvs, ctx )
+  
+  // Grid
+  let scaledW = ( w / UNITSIZE ) / editorCamera.s,
+      scaledH = ( h / UNITSIZE ) / editorCamera.s
+  ctx.strokeStyle = COLOR.editor.grid
+  let cellDist = UNITSIZE * editorCamera.s
+  let inc = cellDist >= 8 ? 1 : cellDist >= 0.8 ? 10 : cellDist >= 0.08 ? 100 : 1000
+  for (
+    let i = Math.floor( ( editorCamera.x - scaledW / 2 ) / inc ) * inc;
+    i < Math.ceil( ( editorCamera.x + scaledW / 2 ) / inc ) * inc;
+    i += inc
+  ) {
+    ctx.lineWidth = i % 10 ? 1 / 12 : i % 100 ? 2 / 12 : i % 1000 ? 4 / 12 : 5 / 12
+    ctx.beginPath( )
+    ctx.moveTo( i, editorCamera.y - scaledH / 2 )
+    ctx.lineTo( i, editorCamera.y + scaledH / 2 )
+    ctx.stroke( )
+  }
+  for (
+    let i = Math.floor( ( editorCamera.y - scaledH / 2 ) / inc ) * inc;
+    i < Math.ceil( ( editorCamera.y + scaledH / 2 ) / inc ) * inc;
+    i += inc
+  ) {
+    ctx.lineWidth = i % 10 ? 1 / 12 : i % 100 ? 2 / 12 : i % 1000 ? 4 / 12 : 5 / 12
+    ctx.beginPath( )
+    ctx.moveTo( editorCamera.x - scaledW / 2, i )
+    ctx.lineTo( editorCamera.x + scaledW / 2, i )
+    ctx.stroke( )
+  }
+  // Spawnpoint
+  let rotation = -2 * Math.PI * spawnSpinnerTimer / 10000
+  ctx.strokeStyle = COLOR.editor.spawnPoint
+  ctx.lineWidth = 1 / 4
+  ctx.lineCap = "round"
+  ctx.beginPath( )
+  ctx.arc( currentLevel.spawnPoint.x, currentLevel.spawnPoint.y, 7 / 8, rotation +  0,               rotation +      Math.PI / 6 )
+  ctx.stroke( )
+  ctx.beginPath( )
+  ctx.arc( currentLevel.spawnPoint.x, currentLevel.spawnPoint.y, 7 / 8, rotation +  2 * Math.PI / 6, rotation +  3 * Math.PI / 6 )
+  ctx.stroke( )
+  ctx.beginPath( )
+  ctx.arc( currentLevel.spawnPoint.x, currentLevel.spawnPoint.y, 7 / 8, rotation +  4 * Math.PI / 6, rotation +  5 * Math.PI / 6 )
+  ctx.stroke( )
+  ctx.beginPath( )
+  ctx.arc( currentLevel.spawnPoint.x, currentLevel.spawnPoint.y, 7 / 8, rotation +  6 * Math.PI / 6, rotation +  7 * Math.PI / 6 )
+  ctx.stroke( )
+  ctx.beginPath( )
+  ctx.arc( currentLevel.spawnPoint.x, currentLevel.spawnPoint.y, 7 / 8, rotation +  8 * Math.PI / 6, rotation +  9 * Math.PI / 6 )
+  ctx.stroke( )
+  ctx.beginPath( )
+  ctx.arc( currentLevel.spawnPoint.x, currentLevel.spawnPoint.y, 7 / 8, rotation + 10 * Math.PI / 6, rotation + 11 * Math.PI / 6 )
+  ctx.stroke( )
+  
+  renderObject( GoalTape )
+  
+  renderObject( Segment )
+}
+
 function renderLevelObjectType( cnvs, ctx, objType ) {
   objType.renderAll( cnvs, ctx, objType.currentLevelInstances )
+}
+
+function renderLevelObjectTypeEditor( cnvs, ctx, objType ) {
+  objType.renderAllEditor( cnvs, ctx, objType.currentLevelInstances )
 }
 
 function renderDashIndicator( cnvs, ctx ) {
