@@ -56,6 +56,10 @@ class LevelObject {
     // ! NOT YET USED BY GAME
   }
   
+  getAnchors( ) {
+    // This function should return an array of all the editable points in this object as Coordinate Anchors
+  }
+  
   copy( ) {
     // This function should return a data-accurate but unlinked copy of the level object
   }
