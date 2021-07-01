@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha029",
+  NUMBER      : "v3.0.0alpha030",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -56,7 +56,11 @@ const COLOR = {
   },
   editor: {
     spawnPoint: "#4cc",
-    grid: "#99AAC3"
+    grid: "#99AAC3",
+    coordinateAnchor: {
+      fill: "#fff",
+      stroke: "#c66"
+    }
   }
 }
 

@@ -85,6 +85,11 @@ function editorMouseMove( e ) {
         ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
       )
     }
+  } else {
+    editorTools[ editorTool ]?.mouseHover?.(
+      ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+      ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+    )
   }
 }
 
@@ -97,7 +102,11 @@ function editorMouseUp( e ) {
   )
 }
 
-function editorMouseCancel( ) {
+function editorMouseCancel( e ) {
+  editorTools[ editorTool ]?.mouseCancel?.(
+    ( ( e.clientX - canvases.w / 2 ) /  UNITSIZE ) / editorCamera.s + editorCamera.x,
+    ( ( e.clientY - canvases.h / 2 ) / -UNITSIZE ) / editorCamera.s + editorCamera.y
+  )
   editorMouseDownCurrent = false
   panning = false
 }
@@ -118,7 +127,40 @@ const editorTools = {
     }
   },
   zoom: { /* ... */ },
-  adjust: { /* ... */ },
+  adjust: {
+    hoverX: -Infinity,
+    hoverY: -Infinity,
+    dragging: false,
+    currentAnchor: null,
+    mouseHover( x, y ) {
+      editorTools.adjust.hoverX = x
+      editorTools.adjust.hoverY = y
+    },
+    mouseDown( x, y ) {
+      for ( let i = 0; i < currentLevel.objects.length; i++ ) {
+        let as = currentLevel.objects[ i ].getAnchors( )
+        for ( let j = 0; j < as.length; j++ ) {
+          let pos = as[ j ].pos
+          if ( ( pos.x - x ) ** 2 + ( pos.y - y ) ** 2 <= 1 / 4 ) {
+            editorTools.adjust.dragging = true
+            editorTools.adjust.currentAnchor = as[ j ]
+            return
+          }
+        }
+      }
+    },
+    mouseDrag( x, y ) {
+      editorTools.adjust.currentAnchor.pos = { x: Math.round( x ), y: Math.round( y ) }
+    },
+    mouseUp( ) {
+      editorTools.adjust.dragging = false
+      editorTools.adjust.currentAnchor = null
+    },
+    mouseCancel( ) {
+      editorTools.adjust.dragging = false
+      editorTools.adjust.currentAnchor = null
+    }
+  },
   segment: {
     mouseDown( x, y ) {
       let obj = new Segment( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
@@ -148,4 +190,88 @@ const editorTools = {
   move: { /* ... */ },
   rotate: { /* ... */ },
   reflect: { /* ... */ }
+}
+
+class CoordinateAnchor {
+  constructor( get, set ) {
+    this._get = get
+    this._set = set
+  }
+  
+  static unlinkedAnchor( x, y ) {
+    // This function creates a Coordinate Anchor that isn't linked to any external value
+    let _x = x
+    let _y = y
+    return new CoordinateAnchor( ( ) => ( { x: _x, y: _y } ), ( x, y ) => { _x = x;_y = y } )
+  }
+  
+  get x( ) {
+    return this._get( ).x
+  }
+  
+  get y( ) {
+    return this._get( ).y
+  }
+  
+  get pos( ) {
+    let { x, y } = this._get( )
+    return { x, y }
+  }
+  
+  get arr( ) {
+    let { x, y } = this._get( )
+    return [ x, y ]
+  }
+  
+  set x( v ) {
+    this._set( v, this._get( ).y )
+  }
+  
+  set y( v ) {
+    this._set( this._get( ).x, v )
+  }
+  
+  set pos( v ) {
+    this._set( v.x, v.y )
+  }
+  
+  set arr( v ) {
+    this._set( v[ 0 ], v[ 1 ] )
+  }
+  
+  static copy( cAnchor ) {
+    return new CoordinateAnchor( cAnchor._get, cAnchor._set )
+  }
+  
+  static move( cAnchors, u, v ) {
+    for ( let i = 0; i < cAnchors.length; i++ ) {
+      let p = cAnchors[ i ].pos
+      cAnchors[ i ].pos = { x: p.x + u, y: p.y + v }
+    }
+  }
+  
+  static getCenter( cAnchors ) {
+    // The center of a set of anchors is itself an anchor, so if the anchors being derived from change, it changes too
+    function getCenter( ) {
+      let bounds = { lx: Infinity, ly: Infinity, hx: -Infinity, hy: -Infinity }
+      for ( let i = 0; i < cAnchors.length; i++ ) {
+        let pos = cAnchors[ i ].pos
+        if ( pos.x < bounds.lx ) bounds.lx = pos.x
+        if ( pos.y < bounds.ly ) bounds.ly = pos.y
+        if ( pos.x > bounds.hx ) bounds.hx = pos.x
+        if ( pos.y > bounds.hy ) bounds.hy = pos.y
+      }
+      return { x: bounds.lx + ( bounds.hx - bounds.lx ) / 2, y: bounds.ly + ( bounds.hy - bounds.ly ) / 2 }
+    }
+    
+    return new CoordinateAnchor( getCenter, ( x, y ) => {
+      // Moving the center anchor is done by translating all the underlying anchors
+      let oldCenter = getCenter( )
+      let translation = { x: x - oldCenter.x, y: y - oldCenter.y }
+      for ( let i = 0; i < cAnchors.length; i++ ) {
+        let pos = cAnchors[ i ].pos
+        cAnchors[ i ].pos = { x: pos.x + translation.x, y: pos.y + translation.y }
+      }
+    } )
+  }
 }
