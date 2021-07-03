@@ -41,8 +41,9 @@ function movePlayer( sx, sy, ex, ey ) {
     checkCollisions = false
     nearestCol = null
     nearestColDistSq = Infinity
-    for ( let i = 0; i < currentLevel.objects.length; i++ ) {
-      let obj = currentLevel.objects[ i ]
+    let objsArr = [ ...currentLevel.objects ]
+    for ( let i = 0; i < objsArr.length; i++ ) {
+      let obj = objsArr[ i ]
       if ( obj.colliders ) {
         for ( let j = 0; j < obj.colliders.length; j++ ) {
           let col = obj.colliders[ j ]

@@ -37,7 +37,7 @@ function renderGame( ) {
   
   // Debug
   if ( SHOWDEBUGINFO ) {
-    currentLevel.objects.forEach( obj => obj.colliders ? obj.colliders.forEach( col => col.render( cnvs, ctx ) ) : null )
+    [ ...currentLevel.objects ].forEach( obj => obj.colliders ? obj.colliders.forEach( col => col.render( cnvs, ctx ) ) : null )
   }
   
   // Dash Indicator
@@ -124,7 +124,7 @@ function renderLevelInEditor( ) {
       ctx.fill( )
       ctx.stroke( )
     } else {
-      currentLevel.objects.forEach( obj => obj.getAnchors( ).forEach( a => {
+      [ ...currentLevel.objects ].forEach( obj => obj.getAnchors( ).forEach( a => {
         let pos = a.pos
         let s =  ( pos.x - editorTools.adjust.hoverX ) ** 2 + ( pos.y - editorTools.adjust.hoverY ) ** 2 <= 1 / 4 ? 3 / 8 : 1 / 4
         ctx.beginPath( )
@@ -137,11 +137,11 @@ function renderLevelInEditor( ) {
 }
 
 function renderLevelObjectType( cnvs, ctx, objType ) {
-  objType.renderAll( cnvs, ctx, objType.currentLevelInstances )
+  objType.renderAll( cnvs, ctx, [ ...objType.currentLevelInstances ] )
 }
 
 function renderLevelObjectTypeEditor( cnvs, ctx, objType ) {
-  objType.renderAllEditor( cnvs, ctx, objType.currentLevelInstances )
+  objType.renderAllEditor( cnvs, ctx, [ ...objType.currentLevelInstances ] )
 }
 
 function renderDashIndicator( cnvs, ctx ) {

@@ -44,12 +44,12 @@ class LevelLike {
 class Level extends LevelLike {
   constructor ( title = "Untited Level", disc = "", author = "", completed = false, objects = [ ], spawnPoint = { x: 0, y: 0 } ) {
     super( title, disc, author, completed )
-    this.objects = objects
+    this.objects = new Set( objects )
     this.spawnPoint = spawnPoint
   }
   
   copy( ) {
-    return new Level( this.title, this.disc, this.author, this.completed, this.objects.map( obj => obj.copy( ) ) )
+    return new Level( this.title, this.disc, this.author, this.completed, [ ...this.objects ].map( obj => obj.copy( ) ) )
   }
   
   markCompleted( ) {
@@ -75,7 +75,7 @@ dotbounce.globalSpecialDictionary.push( {
     { x: makeInteger( ( spawnPoint ?? { x: 0 } ).x ), y: makeInteger( ( spawnPoint ?? { y: 0 } ).y ) }
   ),
   test: obj => obj instanceof Level,
-  getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects, obj.spawnPoint ]
+  getValues: obj => [ obj.title, obj.disc, obj.author, [ ...obj.objects ], obj.spawnPoint ]
 } )
 
 // A LevelPack is largely just a wrapper around an array of levels with some convience functions 
@@ -164,7 +164,7 @@ const UserLevelsSpecialDictionary = new dotbounce.SpecialDictionary(
       { x: makeInteger( ( spawnPoint ?? { x: 0 } ).x ), y: makeInteger( ( spawnPoint ?? { y: 0 } ).y ) }
     ),
     test: obj => obj instanceof Level,
-    getValues: obj => [ obj.title, obj.disc, obj.author, obj.objects, obj.completed, obj.spawnPoint ]
+    getValues: obj => [ obj.title, obj.disc, obj.author, [ ...obj.objects ], obj.completed, obj.spawnPoint ]
   },
   {
     stringIndex: "LevelPack",

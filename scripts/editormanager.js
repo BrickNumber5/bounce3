@@ -25,7 +25,7 @@ function editLevel( levellike ) {
     editorCamera.x = 0
     editorCamera.y = 0
     editorCamera.s = 1
-    levelObjectTypes.forEach( lot => lot.currentLevelInstances = currentLevel.objects.filter( lo => lo instanceof lot ) )
+    levelObjectTypes.forEach( lot => lot.currentLevelInstances = new Set( [ ...currentLevel.objects ].filter( lo => lo instanceof lot ) ) )
   }
 }
 
@@ -137,8 +137,9 @@ const editorTools = {
       editorTools.adjust.hoverY = y
     },
     mouseDown( x, y ) {
-      for ( let i = 0; i < currentLevel.objects.length; i++ ) {
-        let as = currentLevel.objects[ i ].getAnchors( )
+      let objsArr = [ ...currentLevel.objects ]
+      for ( let i = 0; i < objsArr.length; i++ ) {
+        let as = objsArr[ i ].getAnchors( )
         for ( let j = 0; j < as.length; j++ ) {
           let pos = as[ j ].pos
           if ( ( pos.x - x ) ** 2 + ( pos.y - y ) ** 2 <= 1 / 4 ) {
@@ -150,6 +151,7 @@ const editorTools = {
       }
     },
     mouseDrag( x, y ) {
+      if ( !editorTools.adjust.dragging ) return
       editorTools.adjust.currentAnchor.pos = { x: Math.round( x ), y: Math.round( y ) }
     },
     mouseUp( ) {
@@ -164,8 +166,8 @@ const editorTools = {
   segment: {
     mouseDown( x, y ) {
       let obj = new Segment( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
-      currentLevel.objects.push( obj )
-      Segment.currentLevelInstances.push( obj )
+      currentLevel.objects.add( obj )
+      Segment.currentLevelInstances.add( obj )
       editorTools.segment.obj = obj
     },
     mouseDrag( x, y ) {
@@ -177,8 +179,8 @@ const editorTools = {
   goaltape: {
     mouseDown( x, y ) {
       let obj = new GoalTape( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
-      currentLevel.objects.push( obj )
-      GoalTape.currentLevelInstances.push( obj )
+      currentLevel.objects.add( obj )
+      GoalTape.currentLevelInstances.add( obj )
       editorTools.goaltape.obj = obj
     },
     mouseDrag( x, y ) {
@@ -186,7 +188,20 @@ const editorTools = {
       editorTools.goaltape.obj.y2 = Math.round( y )
     }
   },
-  eraser: { /* ... */ },
+  eraser: {
+    mouseDown( x, y ) {
+      let hv = getHoveredBy( x, y )
+      if ( !hv ) return
+      currentLevel.objects.delete( hv )
+      hv.constructor.currentLevelInstances.delete( hv )
+    },
+    mouseDrag( x, y ) {
+      let hv = getHoveredBy( x, y )
+      if ( !hv ) return
+      currentLevel.objects.delete( hv )
+      hv.constructor.currentLevelInstances.delete( hv )
+    }
+  },
   move: { /* ... */ },
   rotate: { /* ... */ },
   reflect: { /* ... */ }
@@ -274,4 +289,12 @@ class CoordinateAnchor {
       }
     } )
   }
+}
+
+function getHoveredBy( x, y ) {
+  let objsArr = [ ...currentLevel.objects ]
+  for ( let i = 0; i < objsArr.length; i++ ) {
+    if ( objsArr[ i ].isHoveredBy( x, y ) ) return objsArr[ i ]
+  }
+  return false
 }

@@ -51,6 +51,10 @@ class Segment extends LevelObject {
     ]
   }
   
+  isHoveredBy( x, y ) {
+    return sqrDistToSegment( x, y, this.x1, this.y1, this.x2, this.y2 ) <= 0.0625
+  }
+  
   copy( ) {
     return new Segment( this.x1, this.y1, this.x2, this.y2 )
   }

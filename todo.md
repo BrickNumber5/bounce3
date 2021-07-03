@@ -41,3 +41,5 @@
    - [ ] Win / Death Fadeout
  - Future
    - [ ] Level Palette Editor
+ - General
+   - [ ] Figure out how on earth Github Desktop works

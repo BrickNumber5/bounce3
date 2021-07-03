@@ -60,6 +60,10 @@ class LevelObject {
     // This function should return an array of all the editable points in this object as Coordinate Anchors
   }
   
+  isHoveredBy( x, y ) {
+    // This function should return if a given x-y coordinate pair overlaps it. This is used to detect selection in the editor
+  }
+  
   copy( ) {
     // This function should return a data-accurate but unlinked copy of the level object
   }
