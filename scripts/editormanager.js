@@ -202,7 +202,42 @@ const editorTools = {
       hv.constructor.currentLevelInstances.delete( hv )
     }
   },
-  move: { /* ... */ },
+  move: {
+    selected: false,
+    cAnchors: [ ],
+    lx: 0,
+    ly: 0,
+    mouseDown( x, y ) {
+      let hv = getHoveredBy( x, y )
+      if ( !hv ) return
+      editorTools.move.selected = true
+      editorTools.move.cAnchors = hv.getAnchors( )
+      editorTools.move.lx = x
+      editorTools.move.ly = y
+    },
+    mouseDrag( x, y ) {
+      if ( !editorTools.move.selected ) return
+      let { cAnchors, lx, ly } = editorTools.move
+      cAnchors.forEach( a => {
+        let pos = a.pos
+        a.pos = { x: pos.x + x - lx, y: pos.y + y - ly }
+      } )
+      editorTools.move.lx = x
+      editorTools.move.ly = y
+    },
+    mouseUp( ) {
+      editorTools.move.cAnchors.forEach( a => {
+        let pos = a.pos
+        a.pos = { x: Math.round( pos.x ), y: Math.round( pos.y ) }
+      } )
+      editorTools.move.selected = false
+      editorTools.move.cAnchors = [ ]
+    },
+    mouseCancel( ) {
+      editorTools.move.selected = false
+      editorTools.move.cAnchors = [ ]
+    }
+  },
   rotate: { /* ... */ },
   reflect: { /* ... */ }
 }
