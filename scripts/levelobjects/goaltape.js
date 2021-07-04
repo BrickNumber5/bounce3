@@ -61,6 +61,12 @@ class GoalTape extends LevelObject {
     ]
   }
   
+  isHoveredBy( x, y ) {
+    let res = nearestPointOnLine( x, y, this.x1, this.y1, this.x2, this.y2 )
+    if ( res.t < 0 || res.t > 1 ) return false
+    return ( res.x - x ) ** 2 + ( res.y - y ) ** 2 <= 0.25
+  }
+  
   copy( ) {
     return new GoalTape( this.x1, this.y1, this.x2, this.y2 )
   }

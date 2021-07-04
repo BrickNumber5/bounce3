@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha031",
+  NUMBER      : "v3.0.0alpha032",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
