@@ -46,8 +46,8 @@ function startLevel( levellike ) {
 // Pulls levels from the Queue
 function startNextLevel( ) {
   currentLevel = levelsQueue.shift( )
-  currentLevel.objects.forEach( lo => lo.onBuild( ) )
-  levelObjectTypes.forEach( lot => lot.currentLevelInstances = currentLevel.objects.filter( lo => lo instanceof lot ) )
+  ;[ ...currentLevel.objects ].forEach( lo => lo.onBuild( ) )
+  levelObjectTypes.forEach( lot => lot.currentLevelInstances = new Set( [ ...currentLevel.objects ].filter( lo => lo instanceof lot ) ) )
   trail = Array.from( { length: TRAILLENGTH }, ( ) => ( { x: null, y: null } ) )
   spawnPlayer( )
 }
@@ -68,8 +68,8 @@ function spawnPlayer( spawnPoint = null, first = true ) {
   player.vx = player.vy = 0
   player.dash = false
   player.goalTimer = Infinity
-  currentLevel.objects.forEach( lo => lo.onSpawn( ) )
-  currentLevel.objects.forEach( lo => first ? lo.onSpawnFirst( ) : onSpawnCheckPoint( ) )
+  ;[ ...currentLevel.objects ].forEach( lo => lo.onSpawn( ) )
+  ;[ ...currentLevel.objects ].forEach( lo => first ? lo.onSpawnFirst( ) : onSpawnCheckPoint( ) )
   trail.shift( )
   trail.push( { x: null, y: null } )
 }

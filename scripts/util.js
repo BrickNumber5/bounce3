@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha028",
+  NUMBER      : "v3.0.0alpha033",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -22,6 +22,7 @@ const generalState = {
   exitMode( ) {
     this.mode = this.prevMode
     this.prevMode = "menu"
+    editorSetTool( "adjust" )
   }
 }
 
@@ -55,7 +56,11 @@ const COLOR = {
   },
   editor: {
     spawnPoint: "#4cc",
-    grid: "#99AAC3"
+    grid: "#99AAC3",
+    coordinateAnchor: {
+      fill: "#fff",
+      stroke: "#c66"
+    }
   }
 }
 
@@ -189,6 +194,32 @@ function angleBetweenAngles( a, b, c ) {
   a = mod( a, 2 * Math.PI )
   c = mod( c, 2 * Math.PI )
   return a > 0 && a <= c
+}
+
+// The following 2 functions are in concept although not in implementation "stolen" shamelessly from here:
+// https://math.stackexchange.com/questions/2193720/find-a-point-on-a-line-segment-which-is-the-closest-to-other-point-not-on-the-li
+
+function nearestPointOnLine( x, y, x1, y1, x2, y2 ) {
+  let vx = x2 - x1,
+      vy = y2 - y1,
+      ux = x1 - x,
+      uy = y1 - y,
+      vu = vx * ux + vy * uy,
+      vv = vx * vx + vy * vy,
+       t = -vu / vv
+  return { t, x: t * x2 + ( 1 - t ) * x1, y: t * y2 + ( 1 - t ) * y1 }
+}
+
+function nearestPointOnSegment( x, y, x1, y1, x2, y2 ) {
+  let npl = nearestPointOnLine( x, y, x1, y1, x2, y2 )
+  if ( npl.t >= 0 && npl.t <= 1 ) return npl
+  if ( npl.t < 0 ) return { t: 0, x: x1, y: y1 }
+  return { t: 1, x: x2, y: y2 }
+}
+
+function sqrDistToSegment( x, y, x1, y1, x2, y2 ) {
+  let nps = nearestPointOnSegment( x, y, x1, y1, x2, y2 )
+  return ( nps.x - x ) ** 2 + ( nps.y - y ) ** 2
 }
 
 function lerp( a, b, t ) {

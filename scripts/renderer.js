@@ -37,7 +37,7 @@ function renderGame( ) {
   
   // Debug
   if ( SHOWDEBUGINFO ) {
-    currentLevel.objects.forEach( obj => obj.colliders ? obj.colliders.forEach( col => col.render( cnvs, ctx ) ) : null )
+    [ ...currentLevel.objects ].forEach( obj => obj.colliders ? obj.colliders.forEach( col => col.render( cnvs, ctx ) ) : null )
   }
   
   // Dash Indicator
@@ -110,14 +110,38 @@ function renderLevelInEditor( ) {
   renderObject( GoalTape )
   
   renderObject( Segment )
+  
+  // Draw Anchors
+  ctx.strokeStyle = COLOR.editor.coordinateAnchor.stroke
+  ctx.fillStyle = COLOR.editor.coordinateAnchor.fill
+  ctx.lineWidth = 3 / 16
+  ctx.lineCap = "round"
+  if ( editorTool === "adjust" ) {
+    if ( editorTools.adjust.dragging ) {
+      let pos = editorTools.adjust.currentAnchor.pos
+      ctx.beginPath( )
+      ctx.arc( pos.x, pos.y, 3 / 8, 0, 2 * Math.PI )
+      ctx.fill( )
+      ctx.stroke( )
+    } else {
+      [ ...currentLevel.objects ].forEach( obj => obj.getAnchors( ).forEach( a => {
+        let pos = a.pos
+        let s =  ( pos.x - editorTools.adjust.hoverX ) ** 2 + ( pos.y - editorTools.adjust.hoverY ) ** 2 <= 1 / 4 ? 3 / 8 : 1 / 4
+        ctx.beginPath( )
+        ctx.arc( pos.x, pos.y, s, 0, 2 * Math.PI )
+        ctx.fill( )
+        ctx.stroke( )
+      } ) )
+    }
+  }
 }
 
 function renderLevelObjectType( cnvs, ctx, objType ) {
-  objType.renderAll( cnvs, ctx, objType.currentLevelInstances )
+  objType.renderAll( cnvs, ctx, [ ...objType.currentLevelInstances ] )
 }
 
 function renderLevelObjectTypeEditor( cnvs, ctx, objType ) {
-  objType.renderAllEditor( cnvs, ctx, objType.currentLevelInstances )
+  objType.renderAllEditor( cnvs, ctx, [ ...objType.currentLevelInstances ] )
 }
 
 function renderDashIndicator( cnvs, ctx ) {

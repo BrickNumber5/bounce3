@@ -54,6 +54,19 @@ class GoalTape extends LevelObject {
     GoalTape.renderAll( cnvs, ctx, objs )
   }
   
+  getAnchors( ) {
+    return [
+      new CoordinateAnchor( ( ) => ( { x: this.x1, y: this.y1 } ), ( x, y ) => { this.x1 = x; this.y1 = y } ),
+      new CoordinateAnchor( ( ) => ( { x: this.x2, y: this.y2 } ), ( x, y ) => { this.x2 = x; this.y2 = y } )
+    ]
+  }
+  
+  isHoveredBy( x, y ) {
+    let res = nearestPointOnLine( x, y, this.x1, this.y1, this.x2, this.y2 )
+    if ( res.t < 0 || res.t > 1 ) return false
+    return ( res.x - x ) ** 2 + ( res.y - y ) ** 2 <= 0.25
+  }
+  
   copy( ) {
     return new GoalTape( this.x1, this.y1, this.x2, this.y2 )
   }
