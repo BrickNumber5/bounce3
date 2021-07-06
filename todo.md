@@ -8,6 +8,7 @@
    - [x] Arc Collider angle limiting
    - [x] Trails
    - [ ] Level Editor Overview
+   - [ ] Unclear Level after any edit of substance
    - [x] Restart Button
    - [x] Pausing
      - [x] By Button

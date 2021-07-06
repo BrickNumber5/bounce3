@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha042",
+  NUMBER      : "v3.0.0alpha043",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -71,6 +71,8 @@ const MAXDISCLENGTH   = 350
 const MAXAUTHORLENGTH = 35
 
 const CUSTOMLEVELSHANDLE = "[Bounce3:UsrSave/CustomLevels]"
+
+const EDITORAUTOSAVETIMEOUT = 5 * 60 * 1000 // 5 minutes in ms
 
 // Creates strings of the form "XXXX-XXXX-XXXX-XXXX" where X is a random hex digit
 let usedStringUUIDS = new Set( ) // To insure no UUID reusage is possible

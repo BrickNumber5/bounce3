@@ -54,6 +54,7 @@ function setupEditor ( ) {
   cnvs.addEventListener( "mouseup", editorMouseUp )
   cnvs.addEventListener( "mouseleave", editorMouseCancel )
   cnvs.addEventListener( "wheel", editorScrollZoom )
+  setInterval( saveCustomLevels, EDITORAUTOSAVETIMEOUT )
 }
 
 let editorMouseDownCurrent = false, panning = false
