@@ -440,7 +440,7 @@ const spawnPointPseudoLevelObject = {
 }
 
 function getHoveredBy( x, y ) {
-  let objsArr = [ ...currentLevel.objects, spawnPointPseudoLevelObject ]
+  let objsArr = editorTool === "move" ? [ ...currentLevel.objects, spawnPointPseudoLevelObject ] : [ ...currentLevel.objects ]
   for ( let i = 0; i < objsArr.length; i++ ) {
     if ( objsArr[ i ].isHoveredBy( x, y ) ) return objsArr[ i ]
   }
