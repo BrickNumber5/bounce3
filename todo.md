@@ -51,3 +51,4 @@
    - [x] Figure out how on earth Github Desktop works
  - Known Bugs
    - [ ] Goal Crash
+   - [ ] Break on First Load due to trying to load non-existant save-data

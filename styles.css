@@ -457,6 +457,30 @@ body {
   100% { transform: scale(1,1);       }
 }
 
+.metadatabutton {
+  position: absolute;
+  top: 0.5rem;
+  left: 14.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/cog-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.metadatabutton:hover, .metadatabutton:focus {
+  filter: brightness(1000%);
+  animation: rotate-slow 0.75s linear infinite;
+}
+
+@keyframes rotate-slow {
+    0% { transform: rotate(0deg);  }
+  100% { transform: rotate(60deg); }
+}
+
 .savebutton {
   position: absolute;
   top: 0.5rem;
@@ -473,7 +497,7 @@ body {
 
 .savebutton:hover, .savebutton:focus {
   filter: brightness(1000%);
-  animation: spin 0.75s infinite;
+  animation: spin 1.5s infinite;
 }
 
 .editorToolbar {
