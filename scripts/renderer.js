@@ -124,7 +124,7 @@ function renderLevelInEditor( ) {
       ctx.fill( )
       ctx.stroke( )
     } else {
-      [ ...currentLevel.objects ].forEach( obj => obj.getAnchors( ).forEach( a => {
+      [ ...currentLevel.objects, spawnPointPseudoLevelObject ].forEach( obj => obj.getAnchors( ).forEach( a => {
         let pos = a.pos
         let s =  ( pos.x - editorTools.adjust.hoverX ) ** 2 + ( pos.y - editorTools.adjust.hoverY ) ** 2 <= 1 / 4 ? 3 / 8 : 1 / 4
         ctx.beginPath( )

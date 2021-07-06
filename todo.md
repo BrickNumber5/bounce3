@@ -32,6 +32,8 @@
    - [ ] Delete Confirmation Box
    - [ ] Level Upload Fail Warning Indicator
    - [ ] Archive Upload Confirmation Box
+   - [ ] Add Github Icon as Repo Link
+   - [ ] Better README.md
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup

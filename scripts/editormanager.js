@@ -139,7 +139,7 @@ const editorTools = {
       editorTools.adjust.hoverY = y
     },
     mouseDown( x, y ) {
-      let objsArr = [ ...currentLevel.objects ]
+      let objsArr = [ ...currentLevel.objects, spawnPointPseudoLevelObject ]
       for ( let i = 0; i < objsArr.length; i++ ) {
         let as = objsArr[ i ].getAnchors( )
         for ( let j = 0; j < as.length; j++ ) {
@@ -427,8 +427,20 @@ class CoordinateAnchor {
   }
 }
 
+const spawnPointPseudoLevelObject = {
+  getAnchors( ) {
+    return [ new CoordinateAnchor(
+      ( ) => ( { x: currentLevel.spawnPoint.x, y: currentLevel.spawnPoint.y } ),
+      ( x, y ) => { currentLevel.spawnPoint.x = x; currentLevel.spawnPoint.y = y }
+    ) ]
+  },
+  isHoveredBy( x, y ) {
+    return ( x - currentLevel.spawnPoint.x ) ** 2 + ( y - currentLevel.spawnPoint.y ) ** 2 <= 1
+  }
+}
+
 function getHoveredBy( x, y ) {
-  let objsArr = [ ...currentLevel.objects ]
+  let objsArr = [ ...currentLevel.objects, spawnPointPseudoLevelObject ]
   for ( let i = 0; i < objsArr.length; i++ ) {
     if ( objsArr[ i ].isHoveredBy( x, y ) ) return objsArr[ i ]
   }
