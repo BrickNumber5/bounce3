@@ -239,7 +239,49 @@ const editorTools = {
     }
   },
   rotate: { /* ... */ },
-  reflect: { /* ... */ }
+  reflect: {
+    selected: false,
+    cAnchors: [ ],
+    lx: 0,
+    ly: 0,
+    mouseDown( x, y ) {
+      let hv = getHoveredBy( x, y )
+      if ( !hv ) return
+      editorTools.reflect.selected = true
+      editorTools.reflect.cAnchors = hv.getAnchors( )
+      editorTools.reflect.lx = x
+      editorTools.reflect.ly = y
+    },
+    mouseDrag( x, y ) {
+      if ( !editorTools.reflect.selected ) return
+      let { cAnchors, lx, ly } = editorTools.reflect
+      let c = CoordinateAnchor.getCenter( cAnchors ).pos
+      let psx = Math.sign( editorTools.reflect.lx - c.x ),
+          psy = Math.sign( editorTools.reflect.ly - c.y ),
+          csx = Math.sign( x - c.x ),
+          csy = Math.sign( y - c.y )
+      if ( psx !== csx ) {
+        CoordinateAnchor.reflect( cAnchors, "h" )
+      }
+      if ( psy !== csy ) {
+        CoordinateAnchor.reflect( cAnchors, "v" )
+      }
+      editorTools.reflect.lx = x || editorTools.reflect.lx
+      editorTools.reflect.ly = y || editorTools.reflect.ly
+    },
+    mouseUp( ) {
+      editorTools.reflect.cAnchors.forEach( a => {
+        let pos = a.pos
+        a.pos = { x: Math.round( pos.x ), y: Math.round( pos.y ) }
+      } )
+      editorTools.reflect.selected = false
+      editorTools.reflect.cAnchors = [ ]
+    },
+    mouseCancel( ) {
+      editorTools.reflect.selected = false
+      editorTools.reflect.cAnchors = [ ]
+    }
+  }
 }
 
 class CoordinateAnchor {
@@ -323,6 +365,16 @@ class CoordinateAnchor {
         cAnchors[ i ].pos = { x: pos.x + translation.x, y: pos.y + translation.y }
       }
     } )
+  }
+  
+  static reflect( cAnchors, dir, center = null ) {
+    center ??= CoordinateAnchor.getCenter( cAnchors ).pos
+    if ( dir === "v" ) {
+      cAnchors.forEach( a => a.y = 2 * center.y - a.y )
+    }
+    if ( dir === "h" ) {
+      cAnchors.forEach( a => a.x = 2 * center.x - a.x )
+    }
   }
 }
 

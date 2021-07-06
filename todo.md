@@ -42,4 +42,6 @@
  - Future
    - [ ] Level Palette Editor
  - General
-   - [ ] Figure out how on earth Github Desktop works
+   - [x] Figure out how on earth Github Desktop works
+ - Known Bugs
+   - [ ] Goal Crash
