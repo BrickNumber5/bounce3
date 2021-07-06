@@ -234,12 +234,91 @@ const editorTools = {
       editorTools.move.cAnchors = [ ]
     },
     mouseCancel( ) {
+      editorTools.move.cAnchors.forEach( a => {
+        let pos = a.pos
+        a.pos = { x: Math.round( pos.x ), y: Math.round( pos.y ) }
+      } )
       editorTools.move.selected = false
       editorTools.move.cAnchors = [ ]
     }
   },
-  rotate: { /* ... */ },
-  reflect: { /* ... */ }
+  rotate: {
+    selected: false,
+    cAnchors: [ ],
+    la: 0,
+    mouseDown( x, y ) {
+      let hv = getHoveredBy( x, y )
+      if ( !hv ) return
+      editorTools.rotate.selected = true
+      let as = hv.getAnchors( ),
+           c = CoordinateAnchor.getCenter( as ).pos
+      editorTools.rotate.cAnchors = as
+      editorTools.rotate.la = Math.atan2( y - c.y, x - c.x )
+    },
+    mouseDrag( x, y ) {
+      if ( !editorTools.rotate.selected ) return
+      let { cAnchors, la } = editorTools.rotate
+      let c = CoordinateAnchor.getCenter( cAnchors ).pos,
+          a = Math.atan2( y - c.y, x - c.x )
+      CoordinateAnchor.rotate( cAnchors, a - la )
+      editorTools.rotate.la = a
+    },
+    mouseUp( ) {
+      editorTools.rotate.cAnchors.forEach( a => {
+        let pos = a.pos
+        a.pos = { x: Math.round( pos.x ), y: Math.round( pos.y ) }
+      } )
+      editorTools.rotate.selected = false
+      editorTools.rotate.cAnchors = [ ]
+    },
+    mouseCancel( ) {
+      editorTools.rotate.cAnchors.forEach( a => {
+        let pos = a.pos
+        a.pos = { x: Math.round( pos.x ), y: Math.round( pos.y ) }
+      } )
+      editorTools.rotate.selected = false
+      editorTools.rotate.cAnchors = [ ]
+    }
+  },
+  reflect: {
+    selected: false,
+    cAnchors: [ ],
+    lx: 0,
+    ly: 0,
+    mouseDown( x, y ) {
+      let hv = getHoveredBy( x, y )
+      if ( !hv ) return
+      editorTools.reflect.selected = true
+      editorTools.reflect.cAnchors = hv.getAnchors( )
+      editorTools.reflect.lx = x
+      editorTools.reflect.ly = y
+    },
+    mouseDrag( x, y ) {
+      if ( !editorTools.reflect.selected ) return
+      let { cAnchors, lx, ly } = editorTools.reflect
+      let c = CoordinateAnchor.getCenter( cAnchors ).pos
+      let psx = Math.sign( editorTools.reflect.lx - c.x ),
+          psy = Math.sign( editorTools.reflect.ly - c.y ),
+          csx = Math.sign( x - c.x ),
+          csy = Math.sign( y - c.y )
+      if ( psx !== csx ) {
+        CoordinateAnchor.reflect( cAnchors, "h" )
+      }
+      if ( psy !== csy ) {
+        CoordinateAnchor.reflect( cAnchors, "v" )
+      }
+      editorTools.reflect.lx = x || editorTools.reflect.lx
+      editorTools.reflect.ly = y || editorTools.reflect.ly
+    },
+    mouseUp( ) {
+      editorTools.reflect.selected = false
+      editorTools.reflect.cAnchors = [ ]
+    },
+    mouseCancel( ) {
+      editorTools.reflect.selected = false
+      editorTools.reflect.cAnchors = [ ]
+    }
+  }
 }
 
 class CoordinateAnchor {
@@ -322,6 +401,26 @@ class CoordinateAnchor {
         let pos = cAnchors[ i ].pos
         cAnchors[ i ].pos = { x: pos.x + translation.x, y: pos.y + translation.y }
       }
+    } )
+  }
+  
+  static reflect( cAnchors, dir, center = null ) {
+    center ??= CoordinateAnchor.getCenter( cAnchors ).pos
+    if ( dir === "v" ) {
+      cAnchors.forEach( a => a.y = 2 * center.y - a.y )
+    }
+    if ( dir === "h" ) {
+      cAnchors.forEach( a => a.x = 2 * center.x - a.x )
+    }
+  }
+  
+  static rotate( cAnchors, angle, center = null ) {
+    center ??= CoordinateAnchor.getCenter( cAnchors ).pos
+    cAnchors.forEach( a => {
+      let pos = a.pos,
+           pa = Math.atan2( pos.y - center.y, pos.x - center.x ),
+          len = Math.sqrt( ( pos.x - center.x ) ** 2 + ( pos.y - center.y ) ** 2 )
+      a.pos = { x: center.x + len * Math.cos( pa + angle ), y: center.y + len * Math.sin( pa + angle ) }
     } )
   }
 }

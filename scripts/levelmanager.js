@@ -42,7 +42,7 @@ class LevelLike {
 }
 
 class Level extends LevelLike {
-  constructor ( title = "Untited Level", disc = "", author = "", completed = false, objects = [ ], spawnPoint = { x: 0, y: 0 } ) {
+  constructor ( title = "Untitled Level", disc = "", author = "", completed = false, objects = [ ], spawnPoint = { x: 0, y: 0 } ) {
     super( title, disc, author, completed )
     this.objects = new Set( objects )
     this.spawnPoint = spawnPoint
