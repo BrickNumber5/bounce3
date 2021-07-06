@@ -40,6 +40,12 @@
    - [x] Make the font work properly
    - [ ] Win / Death Fadeout
  - Future
+   - [ ] Editor Improvements
+     - [ ] Copy
+     - [ ] Paste
+     - [ ] Undo
+     - [ ] Redo
+     - [ ] Shift Key Modifier
    - [ ] Level Palette Editor
  - General
    - [x] Figure out how on earth Github Desktop works
