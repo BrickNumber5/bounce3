@@ -51,8 +51,8 @@
     <div class="editorscreen" style="display: none;">
       <canvas class="mainrenderer"></canvas>
       <button class="backbutton" onclick="closeEditor( );"></button>
-      <button class="metadatabutton" onclick="this.blur( );"></button>
       <button class="playbuttoncorner" onclick="saveCustomLevels( );startLevel( currentLevel );"></button>
+      <button class="metadatabutton" onclick="editMetadata( );this.blur( );"></button>
       <button class="savebutton" onclick="saveCustomLevels( );this.blur( )"></button>
       <div class="editorToolbar">
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="pan"></button>
@@ -65,6 +65,14 @@
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="move"></button>
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="rotate"></button>
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="reflect"></button>
+      </div>
+      <div class="metadatascreen" style="display: none;">
+        <div class="levelfullwidth metaleveluielem">
+          <h4 class="leveltitle"><span contenteditable style="display: block;" data-placeholder="Level Title..."></span></h4>
+          <span class="leveldisc"><span contenteditable style="display: block;" data-placeholder="Level Description.."></span></span>
+          <span class="levelauthor"><span contenteditable style="display: inline-block;" data-placeholder="Level Author..."></span></span>
+          <button class="close" onclick="uneditMetadata( );"></button>
+        </div>
       </div>
     </div>
     <canvas class="temprenderer" style="display: none;" ></canvas>
