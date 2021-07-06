@@ -432,6 +432,74 @@ body {
   overflow: hidden;
 }
 
+.playbuttoncorner {
+  position: absolute;
+  top: 0.5rem;
+  left: 7.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/play-solid-2.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.playbuttoncorner:hover, .playbuttoncorner:focus {
+  filter: brightness(1000%);
+  animation: pop-fixed 0.75s infinite;
+}
+
+@keyframes pop-fixed {
+    0% { transform: scale(1,1);       }
+   50% { transform: scale(1.05,1.05); }
+  100% { transform: scale(1,1);       }
+}
+
+.metadatabutton {
+  position: absolute;
+  top: 0.5rem;
+  left: 14.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/cog-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.metadatabutton:hover, .metadatabutton:focus {
+  filter: brightness(1000%);
+  animation: rotate-slow 0.75s linear infinite;
+}
+
+@keyframes rotate-slow {
+    0% { transform: rotate(0deg);  }
+  100% { transform: rotate(60deg); }
+}
+
+.savebutton {
+  position: absolute;
+  top: 0.5rem;
+  left: 21.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/save-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.savebutton:hover, .savebutton:focus {
+  filter: brightness(1000%);
+  animation: spin 1.5s infinite;
+}
+
 .editorToolbar {
   position: absolute;
   left: 0;
@@ -464,13 +532,63 @@ body {
   cursor: default;
 }
 
-.editorToolButton[data-tool="pan"]      { background-image: url(assets/icons/hand-paper-solid.svg); }
-.editorToolButton[data-tool="zoom"]     { background-image: url(assets/icons/search-solid.svg); }
-.editorToolButton[data-tool="adjust"]   { background-image: url(assets/icons/mouse-pointer-solid.svg); }
+.editorToolButton[data-tool="pan"]      { background-image: url(assets/icons/hand-paper-solid.svg);      }
+.editorToolButton[data-tool="zoom"]     { background-image: url(assets/icons/search-solid.svg);          }
+.editorToolButton[data-tool="adjust"]   { background-image: url(assets/icons/mouse-pointer-solid.svg);   }
 .editorToolButton[data-tool="segment"]  { background-image: url(assets/icons/project-diagram-solid.svg); }
-.editorToolButton[data-tool="polygon"]  { background-image: url(assets/icons/draw-polygon-solid.svg); }
-.editorToolButton[data-tool="goaltape"] { background-image: url(assets/icons/flag-checkered-solid.svg); }
-.editorToolButton[data-tool="eraser"]   { background-image: url(assets/icons/eraser-solid.svg); }
-.editorToolButton[data-tool="move"]     { background-image: url(assets/icons/arrows-alt-solid.svg); }
-.editorToolButton[data-tool="rotate"]   { background-image: url(assets/icons/sync-alt-solid.svg); }
-.editorToolButton[data-tool="reflect"]  { background-image: url(assets/icons/exchange-alt-solid.svg); }
+.editorToolButton[data-tool="polygon"]  { background-image: url(assets/icons/draw-polygon-solid.svg);    }
+.editorToolButton[data-tool="goaltape"] { background-image: url(assets/icons/flag-checkered-solid.svg);  }
+.editorToolButton[data-tool="eraser"]   { background-image: url(assets/icons/eraser-solid.svg);          }
+.editorToolButton[data-tool="move"]     { background-image: url(assets/icons/arrows-alt-solid.svg);      }
+.editorToolButton[data-tool="rotate"]   { background-image: url(assets/icons/sync-alt-solid.svg);        }
+.editorToolButton[data-tool="reflect"]  { background-image: url(assets/icons/exchange-alt-solid.svg);    }
+
+.metadatascreen {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #0008;
+  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.metaleveluielem {
+  width: 40rem;
+}
+
+[contenteditable] {
+  cursor: text;
+  /* all: unset; unsets this too */
+  -webkit-user-modify: read-write-plaintext-only;
+  -moz-user-modify: read-write;
+}
+
+[contenteditable]:empty::before {
+  opacity: 50%;
+  content: attr(data-placeholder);
+}
+
+.close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-image: url(assets/icons/times-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: grayscale(1);
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.close:hover, .close:focus {
+  filter: none;
+  opacity: 100%;
+}

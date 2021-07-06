@@ -34,6 +34,8 @@ function closeEditor( ) {
   generalState.exitMode( )
 }
 
+let EDITINGMETADATA = false
+
 function editorSelectTool( toolButton ) {
   editorSetTool( toolButton.dataset.tool )
   toolButton.blur( )
@@ -431,4 +433,23 @@ function getHoveredBy( x, y ) {
     if ( objsArr[ i ].isHoveredBy( x, y ) ) return objsArr[ i ]
   }
   return false
+}
+
+function editMetadata( ) {
+  EDITINGMETADATA = true
+  let elem = document.querySelector( ".metaleveluielem" )
+  elem.querySelector( ".leveltitle span" ).innerText = currentLevel.title
+  elem.querySelector( ".leveldisc span" ).innerText = currentLevel.disc
+  elem.querySelector( ".levelauthor span" ).innerText = currentLevel.author
+  document.querySelector( ".metadatascreen" ).style.display = ""
+}
+
+function uneditMetadata( ) {
+  EDITINGMETADATA = false
+  let elem = document.querySelector( ".metaleveluielem" )
+  currentLevel.title = elem.querySelector( ".leveltitle span" ).innerText
+  currentLevel.disc = elem.querySelector( ".leveldisc span" ).innerText
+  currentLevel.author = elem.querySelector( ".levelauthor span" ).innerText
+  updateLevelUIComponent( currentLevel )
+  document.querySelector( ".metadatascreen" ).style.display = "none"
 }
