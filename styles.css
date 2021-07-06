@@ -432,6 +432,50 @@ body {
   overflow: hidden;
 }
 
+.playbuttoncorner {
+  position: absolute;
+  top: 0.5rem;
+  left: 7.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/play-solid-2.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.playbuttoncorner:hover, .playbuttoncorner:focus {
+  filter: brightness(1000%);
+  animation: pop-fixed 0.75s infinite;
+}
+
+@keyframes pop-fixed {
+    0% { transform: scale(1,1);       }
+   50% { transform: scale(1.05,1.05); }
+  100% { transform: scale(1,1);       }
+}
+
+.savebutton {
+  position: absolute;
+  top: 0.5rem;
+  left: 21.5rem;
+  display: inline-block;
+  width: 6rem;
+  height: 6rem;
+  cursor: pointer;
+  background-image: url(assets/icons/save-solid.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.savebutton:hover, .savebutton:focus {
+  filter: brightness(1000%);
+  animation: spin 0.75s infinite;
+}
+
 .editorToolbar {
   position: absolute;
   left: 0;

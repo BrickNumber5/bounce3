@@ -51,6 +51,8 @@
     <div class="editorscreen" style="display: none;">
       <canvas class="mainrenderer"></canvas>
       <button class="backbutton" onclick="closeEditor( );"></button>
+      <button class="playbuttoncorner" onclick="saveCustomLevels( );startLevel( currentLevel );"></button>
+      <button class="savebutton" onclick="saveCustomLevels( );this.blur( )"></button>
       <div class="editorToolbar">
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="pan"></button>
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="zoom"></button>
