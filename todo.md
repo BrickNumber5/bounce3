@@ -8,6 +8,7 @@
    - [x] Arc Collider angle limiting
    - [x] Trails
    - [ ] Level Editor Overview
+   - [ ] Unclear Level after any edit of substance
    - [x] Restart Button
    - [x] Pausing
      - [x] By Button
@@ -32,6 +33,8 @@
    - [ ] Delete Confirmation Box
    - [ ] Level Upload Fail Warning Indicator
    - [ ] Archive Upload Confirmation Box
+   - [ ] Add Github Icon as Repo Link
+   - [ ] Better README.md
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
