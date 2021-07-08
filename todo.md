@@ -7,8 +7,8 @@
    - [x] The Dash
    - [x] Arc Collider angle limiting
    - [x] Trails
-   - [ ] Level Editor Overview
-   - [ ] Unclear Level after any edit of substance
+   - [x] Level Editor Overview
+   - [x] Unclear Level after any edit of substance
    - [x] Restart Button
    - [x] Pausing
      - [x] By Button

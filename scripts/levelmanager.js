@@ -52,8 +52,8 @@ class Level extends LevelLike {
     return new Level( this.title, this.disc, this.author, this.completed, [ ...this.objects ].map( obj => obj.copy( ) ) )
   }
   
-  markCompleted( ) {
-    this.completed = true
+  markCompleted( completed = true ) {
+    this.completed = completed
     if ( this.pack ) {
       updateLevelUIComponent( this.pack )
     } else {

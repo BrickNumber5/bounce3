@@ -158,6 +158,7 @@ const editorTools = {
           if ( ( pos.x - x ) ** 2 + ( pos.y - y ) ** 2 <= 1 / 4 ) {
             editorTools.adjust.dragging = true
             editorTools.adjust.currentAnchor = as[ j ]
+            currentLevel.markCompleted( false )
             return
           }
         }
@@ -182,6 +183,7 @@ const editorTools = {
       currentLevel.objects.add( obj )
       Segment.currentLevelInstances.add( obj )
       editorTools.segment.obj = obj
+      currentLevel.markCompleted( false )
     },
     mouseDrag( x, y ) {
       editorTools.segment.obj.x2 = Math.round( x )
@@ -195,6 +197,7 @@ const editorTools = {
       currentLevel.objects.add( obj )
       GoalTape.currentLevelInstances.add( obj )
       editorTools.goaltape.obj = obj
+      currentLevel.markCompleted( false )
     },
     mouseDrag( x, y ) {
       editorTools.goaltape.obj.x2 = Math.round( x )
@@ -207,12 +210,14 @@ const editorTools = {
       if ( !hv ) return
       currentLevel.objects.delete( hv )
       hv.constructor.currentLevelInstances.delete( hv )
+      currentLevel.markCompleted( false )
     },
     mouseDrag( x, y ) {
       let hv = getHoveredBy( x, y )
       if ( !hv ) return
       currentLevel.objects.delete( hv )
       hv.constructor.currentLevelInstances.delete( hv )
+      currentLevel.markCompleted( false )
     }
   },
   move: {
@@ -227,6 +232,7 @@ const editorTools = {
       editorTools.move.cAnchors = hv.getAnchors( )
       editorTools.move.lx = x
       editorTools.move.ly = y
+      currentLevel.markCompleted( false )
     },
     mouseDrag( x, y ) {
       if ( !editorTools.move.selected ) return
@@ -267,6 +273,7 @@ const editorTools = {
            c = CoordinateAnchor.getCenter( as ).pos
       editorTools.rotate.cAnchors = as
       editorTools.rotate.la = Math.atan2( y - c.y, x - c.x )
+      currentLevel.markCompleted( false )
     },
     mouseDrag( x, y ) {
       if ( !editorTools.rotate.selected ) return
@@ -305,6 +312,7 @@ const editorTools = {
       editorTools.reflect.cAnchors = hv.getAnchors( )
       editorTools.reflect.lx = x
       editorTools.reflect.ly = y
+      currentLevel.markCompleted( false )
     },
     mouseDrag( x, y ) {
       if ( !editorTools.reflect.selected ) return
