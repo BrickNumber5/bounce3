@@ -510,7 +510,7 @@ body {
   width: 11rem;
   padding: 1rem;
   background-color: #3588;
-  box-shadow: #3588 0 0 0.5rem 0.5rem
+  box-shadow: #3588 0 0 0.5rem 0.5rem;
 }
 
 .editorToolButton {
@@ -591,4 +591,36 @@ body {
 .close:hover, .close:focus {
   filter: none;
   opacity: 100%;
+}
+
+.zoomToolbar {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  bottom: 0;
+  left: 50%;
+  transform: translate( -50%, 0 );
+  width: 12rem;
+  height: 5rem;
+  padding: 1rem;
+  background-color: #3588;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+}
+
+.zoomin, .zoomout {
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  cursor: pointer;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.zoomin  { background-image: url( assets/icons/search-plus-solid.svg );  }
+.zoomout { background-image: url( assets/icons/search-minus-solid.svg ); }
+
+:is( .zoomin, .zoomout ):is( :hover, :focus ) {
+  filter: brightness(65%);
 }

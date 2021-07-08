@@ -66,6 +66,10 @@
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="rotate"></button>
         <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="reflect"></button>
       </div>
+      <div class="zoomToolbar" style="display: none;">
+        <button class="zoomin" onclick="editorCamera.s *= 1.2;this.blur( );"></button>
+        <button class="zoomout" onclick="editorCamera.s /= 1.2;this.blur( );"></button>
+      </div>
       <div class="metadatascreen" style="display: none;">
         <div class="levelfullwidth metaleveluielem">
           <h4 class="leveltitle"><span contenteditable style="display: block;" data-placeholder="Level Title..."></span></h4>
