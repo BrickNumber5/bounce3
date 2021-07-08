@@ -44,7 +44,10 @@ function editorSelectTool( toolButton ) {
 function editorSetTool( tool ) {
   document.querySelector( `.editorToolButton[data-tool=${ editorTool }]` ).disabled = false
   document.querySelector( `.editorToolButton[data-tool=${ tool }]` ).disabled = true
+  editorTools[ editorTool ]?.deselectTool?.( )
+  editorTools[ editorTool ]?.mouseCancel?.( )
   editorTool = tool
+  editorTools[ editorTool ]?.selectTool?.( )
 }
 
 function setupEditor ( ) {
@@ -129,7 +132,14 @@ const editorTools = {
       editorCamera.y -= y - editorTools.pan.py
     }
   },
-  zoom: { /* ... */ },
+  zoom: {
+    selectTool( ) {
+      document.querySelector( ".zoomToolbar" ).style.display = ""
+    },
+    deselectTool( ) {
+      document.querySelector( ".zoomToolbar" ).style.display = "none"
+    }
+  },
   adjust: {
     hoverX: -Infinity,
     hoverY: -Infinity,
