@@ -22,10 +22,8 @@
    - [x] Parallax Starfield Background
    - [ ] Polygon Level Object
    - [x] Goaltape Level Object
-   - [ ] Levelpack editor
    - [x] Copy to Custom Button
    - [x] Local Storage Saving of Custom Levels
-   - [ ] Death by Void
    - [x] Download, Upload, and Archive buttons
      - [x] Download
      - [x] Upload
@@ -36,6 +34,10 @@
    - [x] Add Github Icon as Repo Link
    - [ ] Better README.md
    - [ ] Features Writup ( Initial Changelog Entry )
+ - [ ] v3.0.0beta002+ ( pre v3.0.0 )
+   - [ ] Levelpack editor
+   - [ ] Editor Multitouch
+   - [ ] Death by Void
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent
