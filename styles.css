@@ -626,7 +626,7 @@ body {
 }
 
 .githubButton {
-  position: absolute;
+  position: fixed;
   bottom: 0.5rem;
   left: 0.5rem;
   display: block;
