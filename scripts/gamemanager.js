@@ -81,15 +81,15 @@ function stopGame( ) {
 
 function setupGamemanager( ) {
   let cnvs = canvases.game
-  cnvs.addEventListener( "mousedown", startDash )
-  cnvs.addEventListener( "mousemove", editDash )
-  cnvs.addEventListener( "mouseup", releaseDash )
-  cnvs.addEventListener( "mouseleave", cancelDash )
+  cnvs.addEventListener( "mousedown", startDash, { passive: false } )
+  cnvs.addEventListener( "mousemove", editDash, { passive: false } )
+  cnvs.addEventListener( "mouseup", releaseDash, { passive: false } )
+  cnvs.addEventListener( "mouseleave", cancelDash, { passive: false } )
   const touchMouseAdaptor = fn => e => { fn( e.targetTouches.item( 0 ) ); e.preventDefault( ) }
-  cnvs.addEventListener( "touchstart", touchMouseAdaptor( startDash ) )
-  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editDash ) )
-  cnvs.addEventListener( "touchend", touchMouseAdaptor( releaseDash ) )
-  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( cancelDash ) )
+  cnvs.addEventListener( "touchstart", touchMouseAdaptor( startDash ), { passive: false } )
+  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editDash ), { passive: false } )
+  cnvs.addEventListener( "touchend", touchMouseAdaptor( releaseDash ), { passive: false } )
+  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( cancelDash ), { passive: false } )
 }
 
 function startDash( e ) {

@@ -52,16 +52,16 @@ function editorSetTool( tool ) {
 
 function setupEditor ( ) {
   let cnvs = canvases.editor
-  cnvs.addEventListener( "mousedown", editorMouseDown )
-  cnvs.addEventListener( "mousemove", editorMouseMove )
-  cnvs.addEventListener( "mouseup", editorMouseUp )
-  cnvs.addEventListener( "mouseleave", editorMouseCancel )
+  cnvs.addEventListener( "mousedown", editorMouseDown, { passive: false } )
+  cnvs.addEventListener( "mousemove", editorMouseMove, { passive: false } )
+  cnvs.addEventListener( "mouseup", editorMouseUp, { passive: false } )
+  cnvs.addEventListener( "mouseleave", editorMouseCancel, { passive: false } )
   const touchMouseAdaptor = fn => e => { fn( e.targetTouches.item( 0 ) ); e.preventDefault( ) }
-  cnvs.addEventListener( "touchstart", touchMouseAdaptor( editorMouseDown ) )
-  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editorMouseMove ) )
-  cnvs.addEventListener( "touchend", touchMouseAdaptor( editorMouseUp ) )
-  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( editorMouseCancel ) )
-  cnvs.addEventListener( "wheel", editorScrollZoom )
+  cnvs.addEventListener( "touchstart", touchMouseAdaptor( editorMouseDown ), { passive: false } )
+  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editorMouseMove ), { passive: false } )
+  cnvs.addEventListener( "touchend", touchMouseAdaptor( editorMouseUp ), { passive: false } )
+  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( editorMouseCancel ), { passive: false } )
+  cnvs.addEventListener( "wheel", editorScrollZoom, { passive: false } )
   setInterval( saveCustomLevels, EDITORAUTOSAVETIMEOUT )
 }
 
