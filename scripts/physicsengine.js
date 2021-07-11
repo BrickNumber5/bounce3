@@ -69,6 +69,7 @@ function movePlayer( sx, sy, ex, ey ) {
       player.va = Math.atan2( player.vy, player.vx )
       player.dash = true
       if ( nearestCol.dfn ) nearestCol.dfn( )
+      if ( nearestCol.done ) return
     }
   }
   player.x = ex
@@ -223,7 +224,8 @@ class SegmentTriggerCollider extends TriggerCollider {
       ney: ey,
       nvx: player.vx,
       nvy: player.vy,
-      dfn: this.fn
+      dfn: this.fn,
+      done: true
     }
   }
   

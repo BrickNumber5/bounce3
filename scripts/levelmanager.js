@@ -187,9 +187,11 @@ function saveCustomLevels( ) {
 }
 
 function loadCustomLevels( ) {
-  dotbounce.parse( binaryStringToArrayBuffer( localStorage.getItem( CUSTOMLEVELSHANDLE ) ), UserLevelsSpecialDictionary ).forEach(
-    levellike => importLevel( levellike, false, false )
-  )
+  if ( localStorage.getItem( CUSTOMLEVELSHANDLE ) !== null ) {
+    dotbounce.parse( binaryStringToArrayBuffer( localStorage.getItem( CUSTOMLEVELSHANDLE ) ), UserLevelsSpecialDictionary ).forEach(
+      levellike => importLevel( levellike, false, false )
+    )
+  }
   saveCustomLevels( )
 }
 
