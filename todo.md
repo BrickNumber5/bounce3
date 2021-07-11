@@ -30,7 +30,7 @@
    - [x] Delete Confirmation Box
    - [x] Add Github Icon as Repo Link
    - [x] Better README.md
-   - [ ] Features Writup ( Initial Changelog Entry )
+   - [x] Features Writup ( Initial Changelog Entry )
  - [ ] v3.0.0beta002+ ( pre v3.0.0 )
    - [ ] Levelpack editor
    - [ ] Editor Multitouch
