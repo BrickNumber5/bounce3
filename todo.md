@@ -29,7 +29,7 @@
      - [x] Archive ( Download All )
    - [x] Delete Confirmation Box
    - [x] Add Github Icon as Repo Link
-   - [ ] Better README.md
+   - [x] Better README.md
    - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] v3.0.0beta002+ ( pre v3.0.0 )
    - [ ] Levelpack editor
@@ -56,5 +56,5 @@
  - General
    - [x] Figure out how on earth Github Desktop works
  - Known Bugs
-   - [ ] Goal Crash
+   - [x] Goal Crash
    - [x] Break on First Load due to trying to load non-existant save-data
