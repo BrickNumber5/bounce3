@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha048",
+  NUMBER      : "v3.0.0alpha049",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -113,6 +113,14 @@ window.addEventListener( "resize", ( ) => {
 window.addEventListener( "blur", ( ) => {
   if ( generalState.mode == "game" ) {
     pause( )
+  }
+} )
+
+window.addEventListener( "keyup", e => {
+  if ( generalState.mode == "game" ) {
+    handleKeyPressGame( e )
+  } else if ( generalState.mode == "editor" ) {
+    handleKeyPressEditor( e )
   }
 } )
 

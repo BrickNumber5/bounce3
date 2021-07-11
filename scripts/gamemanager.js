@@ -145,3 +145,21 @@ function unpause( ) {
   PAUSED = false
   document.querySelector( ".pausedscreen" ).style.display = "none"
 }
+
+function handleKeyPressGame( e ) {
+  if ( !PAUSED ) {
+    switch ( e.key ) {
+      case "Escape":
+        stopGame( )
+        break
+      case "r":
+        spawnPlayer( )
+        break
+      case "p":
+        pause( )
+        break
+    }
+  } else if ( e.key === "Enter" || e.key === "Escape" ) {
+    unpause( )
+  }
+}
