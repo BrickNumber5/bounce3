@@ -199,10 +199,9 @@ const editorTools = {
       editorTools.segment.obj.y2 = Math.round( y )
     }
   },
-  polygon: {
+  /* polygon: {
     shortcutKey: "y",
-    /* ... */
-  },
+  }, */
   goaltape: {
     shortcutKey: "g",
     mouseDown( x, y ) {

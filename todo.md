@@ -20,7 +20,6 @@
    - [x] Touch Support
    - [x] Keyboard Shortcuts for various buttons in play and edit mode
    - [x] Parallax Starfield Background
-   - [ ] Polygon Level Object
    - [x] Goaltape Level Object
    - [x] Copy to Custom Button
    - [x] Local Storage Saving of Custom Levels
@@ -38,6 +37,7 @@
    - [ ] Levelpack editor
    - [ ] Editor Multitouch
    - [ ] Death by Void
+   - [ ] Polygon Level Object
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent

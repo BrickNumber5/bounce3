@@ -633,6 +633,8 @@ body {
   width: 4rem;
   height: 4rem;
   cursor: pointer;
+  background-color: var(--bg-clr);
+  border-radius: 100%;
   background-image: url( assets/github/GitHub-Mark-Light-64px.png );
   background-size: contain;
   background-repeat: no-repeat;
