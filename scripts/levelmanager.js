@@ -27,9 +27,11 @@ class LevelLike {
   }
   
   remove( ) {
-    removeLevelUIComponent( this )
-    customLevels.delete( this )
-    saveCustomLevels( )
+    if ( confirm( `Delete '${ this.title }'?` ) ) {
+      removeLevelUIComponent( this )
+      customLevels.delete( this )
+      saveCustomLevels( )
+    }
   }
   
   updateUI( ) {

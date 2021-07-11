@@ -27,7 +27,7 @@
      - [x] Download
      - [x] Upload
      - [x] Archive ( Download All )
-   - [ ] Delete Confirmation Box
+   - [x] Delete Confirmation Box
    - [x] Add Github Icon as Repo Link
    - [ ] Better README.md
    - [ ] Features Writup ( Initial Changelog Entry )
