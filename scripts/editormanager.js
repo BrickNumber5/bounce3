@@ -56,6 +56,11 @@ function setupEditor ( ) {
   cnvs.addEventListener( "mousemove", editorMouseMove )
   cnvs.addEventListener( "mouseup", editorMouseUp )
   cnvs.addEventListener( "mouseleave", editorMouseCancel )
+  const touchMouseAdaptor = fn => e => { fn( e.targetTouches.item( 0 ) ); e.preventDefault( ) }
+  cnvs.addEventListener( "touchstart", touchMouseAdaptor( editorMouseDown ) )
+  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editorMouseMove ) )
+  cnvs.addEventListener( "touchend", touchMouseAdaptor( editorMouseUp ) )
+  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( editorMouseCancel ) )
   cnvs.addEventListener( "wheel", editorScrollZoom )
   setInterval( saveCustomLevels, EDITORAUTOSAVETIMEOUT )
 }

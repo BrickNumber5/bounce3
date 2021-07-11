@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha049",
+  NUMBER      : "v3.0.0alpha050",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -136,6 +136,7 @@ function tick( ) {
   elapsedTime = t - lastTime
   lastTime = t
   if ( generalState.mode == "menu" ) return
+  window.scrollTo( 0, 0 ) // Because Mobile Browsers hate you
   if ( generalState.mode == "game" ) {
     gameTick( )
   } else if ( generalState.mode == "editor" ) {

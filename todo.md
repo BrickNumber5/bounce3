@@ -17,7 +17,7 @@
      - [x] Technical(ish) Description
      - [x] Processor
    - [x] Add license
-   - [ ] Touch Support
+   - [x] Touch Support
    - [x] Keyboard Shortcuts for various buttons in play and edit mode
    - [x] Parallax Starfield Background
    - [ ] Polygon Level Object
