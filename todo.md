@@ -17,25 +17,28 @@
      - [x] Technical(ish) Description
      - [x] Processor
    - [x] Add license
-   - [ ] Touch Support
-   - [ ] Keyboard Shortcuts for various buttons in play and edit mode
+   - [x] Touch Support
+   - [x] Keyboard Shortcuts for various buttons in play and edit mode
    - [x] Parallax Starfield Background
-   - [ ] Polygon Level Object
    - [x] Goaltape Level Object
-   - [ ] Levelpack editor
    - [x] Copy to Custom Button
    - [x] Local Storage Saving of Custom Levels
-   - [ ] Death by Void
    - [x] Download, Upload, and Archive buttons
      - [x] Download
      - [x] Upload
      - [x] Archive ( Download All )
-   - [ ] Delete Confirmation Box
+   - [x] Delete Confirmation Box
+   - [x] Add Github Icon as Repo Link
+   - [x] Better README.md
+   - [x] Features Writup ( Initial Changelog Entry )
+ - [ ] v3.0.0beta002+ ( pre v3.0.0 )
+   - [ ] Levelpack editor
+   - [ ] Editor Multitouch
+   - [ ] Death by Void
+   - [ ] Polygon Level Object
+   - [ ] Custom Confirmation Boxes
+   - [ ] Custom Tooltips
    - [ ] Level Upload Fail Warning Indicator
-   - [ ] Archive Upload Confirmation Box
-   - [ ] Add Github Icon as Repo Link
-   - [ ] Better README.md
-   - [ ] Features Writup ( Initial Changelog Entry )
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent
@@ -53,5 +56,5 @@
  - General
    - [x] Figure out how on earth Github Desktop works
  - Known Bugs
-   - [ ] Goal Crash
-   - [ ] Break on First Load due to trying to load non-existant save-data
+   - [x] Goal Crash
+   - [x] Break on First Load due to trying to load non-existant save-data

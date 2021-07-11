@@ -52,11 +52,16 @@ function editorSetTool( tool ) {
 
 function setupEditor ( ) {
   let cnvs = canvases.editor
-  cnvs.addEventListener( "mousedown", editorMouseDown )
-  cnvs.addEventListener( "mousemove", editorMouseMove )
-  cnvs.addEventListener( "mouseup", editorMouseUp )
-  cnvs.addEventListener( "mouseleave", editorMouseCancel )
-  cnvs.addEventListener( "wheel", editorScrollZoom )
+  cnvs.addEventListener( "mousedown", editorMouseDown, { passive: false } )
+  cnvs.addEventListener( "mousemove", editorMouseMove, { passive: false } )
+  cnvs.addEventListener( "mouseup", editorMouseUp, { passive: false } )
+  cnvs.addEventListener( "mouseleave", editorMouseCancel, { passive: false } )
+  const touchMouseAdaptor = fn => e => { fn( e.targetTouches.item( 0 ) ); e.preventDefault( ) }
+  cnvs.addEventListener( "touchstart", touchMouseAdaptor( editorMouseDown ), { passive: false } )
+  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editorMouseMove ), { passive: false } )
+  cnvs.addEventListener( "touchend", touchMouseAdaptor( editorMouseUp ), { passive: false } )
+  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( editorMouseCancel ), { passive: false } )
+  cnvs.addEventListener( "wheel", editorScrollZoom, { passive: false } )
   setInterval( saveCustomLevels, EDITORAUTOSAVETIMEOUT )
 }
 
@@ -123,6 +128,7 @@ function editorScrollZoom( e ) {
 
 const editorTools = {
   pan: {
+    shortcutKey: "p",
     mouseDown( x, y ) {
       editorTools.pan.px = x
       editorTools.pan.py = y
@@ -133,6 +139,7 @@ const editorTools = {
     }
   },
   zoom: {
+    shortcutKey: "z",
     selectTool( ) {
       document.querySelector( ".zoomToolbar" ).style.display = ""
     },
@@ -141,6 +148,7 @@ const editorTools = {
     }
   },
   adjust: {
+    shortcutKey: "a",
     hoverX: -Infinity,
     hoverY: -Infinity,
     dragging: false,
@@ -178,6 +186,7 @@ const editorTools = {
     }
   },
   segment: {
+    shortcutKey: "l",
     mouseDown( x, y ) {
       let obj = new Segment( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
       currentLevel.objects.add( obj )
@@ -190,8 +199,11 @@ const editorTools = {
       editorTools.segment.obj.y2 = Math.round( y )
     }
   },
-  polygon: { /* ... */ },
+  /* polygon: {
+    shortcutKey: "y",
+  }, */
   goaltape: {
+    shortcutKey: "g",
     mouseDown( x, y ) {
       let obj = new GoalTape( Math.round( x ), Math.round( y ), Math.round( x ), Math.round( y ) )
       currentLevel.objects.add( obj )
@@ -205,6 +217,7 @@ const editorTools = {
     }
   },
   eraser: {
+    shortcutKey: "e",
     mouseDown( x, y ) {
       let hv = getHoveredBy( x, y )
       if ( !hv ) return
@@ -221,6 +234,7 @@ const editorTools = {
     }
   },
   move: {
+    shortcutKey: "m",
     selected: false,
     cAnchors: [ ],
     lx: 0,
@@ -262,6 +276,7 @@ const editorTools = {
     }
   },
   rotate: {
+    shortcutKey: "r",
     selected: false,
     cAnchors: [ ],
     la: 0,
@@ -301,6 +316,7 @@ const editorTools = {
     }
   },
   reflect: {
+    shortcutKey: "f",
     selected: false,
     cAnchors: [ ],
     lx: 0,
@@ -483,4 +499,36 @@ function uneditMetadata( ) {
   currentLevel.author = elem.querySelector( ".levelauthor span" ).innerText
   updateLevelUIComponent( currentLevel )
   document.querySelector( ".metadatascreen" ).style.display = "none"
+}
+
+function handleKeyPressEditor( e ) {
+  if ( EDITINGMETADATA && e.key === "Escape" ) {
+    uneditMetadata( )
+  } else if ( !EDITINGMETADATA ) {
+    if ( e.key === "Escape" ) {
+      closeEditor( )
+      return
+    }
+    if ( e.key === "Enter" ) {
+      saveCustomLevels( )
+      startLevel( currentLevel )
+      return
+    }
+    if ( e.key === "\\" ) {
+      editMetadata( )
+      return
+    }
+    if ( e.key === "s" ) {
+      saveCustomLevels( )
+      return
+    }
+    // I would use editorTools.forEach here, but I want to early-exit
+    let editorToolNames = Object.keys( editorTools )
+    for ( let i = 0; i < editorToolNames.length; i++ ) {
+      if ( editorTools[ editorToolNames[ i ] ]?.shortcutKey === e.key ) {
+        editorSetTool( editorToolNames[ i ] )
+        return
+      }
+    }
+  }
 }

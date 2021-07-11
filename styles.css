@@ -624,3 +624,24 @@ body {
 :is( .zoomin, .zoomout ):is( :hover, :focus ) {
   filter: brightness(65%);
 }
+
+.githubButton {
+  position: fixed;
+  bottom: 0.5rem;
+  left: 0.5rem;
+  display: block;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  background-color: var(--bg-clr);
+  border-radius: 100%;
+  background-image: url( assets/github/GitHub-Mark-Light-64px.png );
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.githubButton:hover, .githubButton:focus {
+  width: 5rem;
+  height: 5rem;
+}

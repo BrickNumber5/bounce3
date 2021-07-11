@@ -34,37 +34,38 @@
           </div>
           <div class="levelstoolbar">
             <button class="iconbutton new" onclick="newLevel( );this.blur( )"></button>
-            <button class="iconbutton newpack" onclick="newLevelPack( );this.blur( )"></button>
+            <!--<button class="iconbutton newpack" onclick="newLevelPack( );this.blur( )"></button>-->
             <button class="iconbutton upload" onclick="uploadLevel( );this.blur( )"></button>
             <button class="iconbutton archive" onclick="archiveCustomLevels( );this.blur( )"></button>
           </div>
         </div>
+        <a class="githubButton" href="https://github.com/BrickNumber5/bounce3" target="_blank"></a>
       </div>
     </div>
     <div class="gamescreen" style="display: none;">
       <canvas class="mainrenderer"></canvas>
-      <button class="backbutton" onclick="stopGame( );"></button>
-      <button class="restartbutton" onclick="spawnPlayer( );this.blur( )"></button>
-      <button class="pausebutton" onclick="pause( );this.blur( )"></button>
-      <div class="pausedscreen" style="display: none;"><button class="playbutton" onclick="unpause( )"></button></div>
+      <button class="backbutton" title="[ESC] Exit play mode" onclick="stopGame( );"></button>
+      <button class="restartbutton" title="[R] Restart level" onclick="spawnPlayer( );this.blur( )"></button>
+      <button class="pausebutton" title="[P] Pause level" onclick="pause( );this.blur( )"></button>
+      <div class="pausedscreen" style="display: none;"><button class="playbutton" title="[ENTER] Resume Level" onclick="unpause( )"></button></div>
     </div>
     <div class="editorscreen" style="display: none;">
       <canvas class="mainrenderer"></canvas>
-      <button class="backbutton" onclick="closeEditor( );"></button>
-      <button class="playbuttoncorner" onclick="saveCustomLevels( );startLevel( currentLevel );"></button>
-      <button class="metadatabutton" onclick="editMetadata( );this.blur( );"></button>
-      <button class="savebutton" onclick="saveCustomLevels( );this.blur( )"></button>
+      <button class="backbutton" title="[ESC] Exit editor" onclick="closeEditor( );"></button>
+      <button class="playbuttoncorner" title="[ENTER] Play Level" onclick="saveCustomLevels( );startLevel( currentLevel );"></button>
+      <button class="metadatabutton" title="[\] Edit Level Metadata (Title, Description, and Author)" onclick="editMetadata( );this.blur( );"></button>
+      <button class="savebutton" title="[S] Save Level" onclick="saveCustomLevels( );this.blur( )"></button>
       <div class="editorToolbar">
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="pan"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="zoom"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="adjust" disabled></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="segment"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="polygon"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="goaltape"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="eraser"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="move"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="rotate"></button>
-        <button class="editorToolButton" onclick="editorSelectTool( this )" data-tool="reflect"></button>
+        <button class="editorToolButton" title="[P] Pan Tool"          onclick="editorSelectTool( this )" data-tool="pan"></button>
+        <button class="editorToolButton" title="[Z] Zoom Tool"         onclick="editorSelectTool( this )" data-tool="zoom"></button>
+        <button class="editorToolButton" title="[A] Adjust Tool"       onclick="editorSelectTool( this )" data-tool="adjust" disabled></button>
+        <button class="editorToolButton" title="[L] Line Segment Tool" onclick="editorSelectTool( this )" data-tool="segment"></button>
+        <!--<button class="editorToolButton" title="[Y] Polygon Tool"      onclick="editorSelectTool( this )" data-tool="polygon"></button>-->
+        <button class="editorToolButton" title="[G] Goaltape Tool"     onclick="editorSelectTool( this )" data-tool="goaltape"></button>
+        <button class="editorToolButton" title="[E] Eraser Tool"       onclick="editorSelectTool( this )" data-tool="eraser"></button>
+        <button class="editorToolButton" title="[M] Move Tool"         onclick="editorSelectTool( this )" data-tool="move"></button>
+        <button class="editorToolButton" title="[R] Rotate Tool"       onclick="editorSelectTool( this )" data-tool="rotate"></button>
+        <button class="editorToolButton" title="[F] Reflect Tool"      onclick="editorSelectTool( this )" data-tool="reflect"></button>
       </div>
       <div class="zoomToolbar" style="display: none;">
         <button class="zoomin" onclick="editorCamera.s *= 1.2;this.blur( );"></button>
@@ -75,7 +76,7 @@
           <h4 class="leveltitle"><span contenteditable style="display: block;" data-placeholder="Level Title..."></span></h4>
           <span class="leveldisc"><span contenteditable style="display: block;" data-placeholder="Level Description.."></span></span>
           <span class="levelauthor"><span contenteditable style="display: inline-block;" data-placeholder="Level Author..."></span></span>
-          <button class="close" onclick="uneditMetadata( );"></button>
+          <button class="close" title="[ESC] Exit" onclick="uneditMetadata( );"></button>
         </div>
       </div>
     </div>

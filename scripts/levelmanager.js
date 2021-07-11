@@ -27,9 +27,11 @@ class LevelLike {
   }
   
   remove( ) {
-    removeLevelUIComponent( this )
-    customLevels.delete( this )
-    saveCustomLevels( )
+    if ( confirm( `Delete '${ this.title }'?` ) ) {
+      removeLevelUIComponent( this )
+      customLevels.delete( this )
+      saveCustomLevels( )
+    }
   }
   
   updateUI( ) {
@@ -185,9 +187,11 @@ function saveCustomLevels( ) {
 }
 
 function loadCustomLevels( ) {
-  dotbounce.parse( binaryStringToArrayBuffer( localStorage.getItem( CUSTOMLEVELSHANDLE ) ), UserLevelsSpecialDictionary ).forEach(
-    levellike => importLevel( levellike, false, false )
-  )
+  if ( localStorage.getItem( CUSTOMLEVELSHANDLE ) !== null ) {
+    dotbounce.parse( binaryStringToArrayBuffer( localStorage.getItem( CUSTOMLEVELSHANDLE ) ), UserLevelsSpecialDictionary ).forEach(
+      levellike => importLevel( levellike, false, false )
+    )
+  }
   saveCustomLevels( )
 }
 

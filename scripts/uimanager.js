@@ -166,7 +166,7 @@ function setVersionDisplays( ) {
   
   let changelog = document.createElement( "span" )
   changelog.className = "changelog"
-  changelog.innerHTML = ' (<a target="_blank" href="about:blank">changelog</a>)'
+  changelog.innerHTML = ' (<a target="_blank" href="https://github.com/BrickNumber5/bounce3/blob/main/CHANGELOG.md">changelog</a>)'
   versionLine.appendChild( changelog )
   
   if ( VERSION.EXPERIMENTAL ) {

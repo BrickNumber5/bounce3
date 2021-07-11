@@ -5,7 +5,7 @@
  */
 
 const VERSION = {
-  NUMBER      : "v3.0.0alpha045",
+  NUMBER      : "v3.0.0alpha056",
   NAME        : "Nonpublic Alpha Build",
   EXPERIMENTAL: true
 }
@@ -116,6 +116,14 @@ window.addEventListener( "blur", ( ) => {
   }
 } )
 
+window.addEventListener( "keyup", e => {
+  if ( generalState.mode == "game" ) {
+    handleKeyPressGame( e )
+  } else if ( generalState.mode == "editor" ) {
+    handleKeyPressEditor( e )
+  }
+} )
+
 function fullscreenCanvas( canvas ) {
   canvas.width  = canvases.w = window.innerWidth
   canvas.height = canvases.h = window.innerHeight
@@ -128,6 +136,7 @@ function tick( ) {
   elapsedTime = t - lastTime
   lastTime = t
   if ( generalState.mode == "menu" ) return
+  window.scrollTo( 0, 0 ) // Because Mobile Browsers hate you
   if ( generalState.mode == "game" ) {
     gameTick( )
   } else if ( generalState.mode == "editor" ) {

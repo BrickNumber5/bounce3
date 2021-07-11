@@ -1,0 +1,51 @@
+# Bounce3 Changelog
+
+## v3.0.0*beta*001 | **Public Beta**
+
+ - (+) Titlescreen
+   - (+) Versioning
+   - (+) Built-in and Custom Level sections
+   - (+) Add level button
+   - (+) Upload level button
+   - (+) Archive all levels button
+   - (+) Levels with title, description, and author slots
+   - (+) Level play button
+   - (+) Level edit button
+   - (+) Level download button
+   - (+) Level delete button
+   - (+) Level clear flags
+   - (+) Automatic level ui management
+   - (+) Github Icon button links to repo
+ - (+) Game
+   - (+) Player
+   - (+) Base Physics
+   - (+) Rendering Pipeline
+   - (+) Mouse / Touch Control
+   - (+) Exit Button
+   - (+) Restart Button
+   - (+) Pausing
+     - (+) Pause Button
+     - (+) Play Button in Pause Menu
+   - (+) Keyboard shortcuts for exit, restart, pause, and play buttons
+ - (+) Level Editor
+   - (+) Grid
+   - (+) Base Editor Engine
+   - (+) Exit Button
+   - (+) Play Button
+   - (+) Edit Metadata Button and Menu
+   - (+) Save Button
+   - (+) Editor Tools
+     - (+) Pan Tool
+     - (+) Zoom Tool
+     - (+) Adjust Tool
+     - (+) Line Segment Tool
+     - (+) Goaltape Tool
+     - (+) Eraser Tool
+     - (+) Move Tool
+     - (+) Rotate Tool
+     - (+) Reflect Tool
+ - (+) Level Objects
+   - (+) Template Level Object
+   - (+) Segment
+   - (+) Goaltape
+ - (+) Dotbounce File Format

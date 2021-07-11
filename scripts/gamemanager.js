@@ -81,10 +81,15 @@ function stopGame( ) {
 
 function setupGamemanager( ) {
   let cnvs = canvases.game
-  cnvs.addEventListener( "mousedown", startDash )
-  cnvs.addEventListener( "mousemove", editDash )
-  cnvs.addEventListener( "mouseup", releaseDash )
-  cnvs.addEventListener( "mouseleave", cancelDash )
+  cnvs.addEventListener( "mousedown", startDash, { passive: false } )
+  cnvs.addEventListener( "mousemove", editDash, { passive: false } )
+  cnvs.addEventListener( "mouseup", releaseDash, { passive: false } )
+  cnvs.addEventListener( "mouseleave", cancelDash, { passive: false } )
+  const touchMouseAdaptor = fn => e => { fn( e.targetTouches.item( 0 ) ); e.preventDefault( ) }
+  cnvs.addEventListener( "touchstart", touchMouseAdaptor( startDash ), { passive: false } )
+  cnvs.addEventListener( "touchmove", touchMouseAdaptor( editDash ), { passive: false } )
+  cnvs.addEventListener( "touchend", touchMouseAdaptor( releaseDash ), { passive: false } )
+  cnvs.addEventListener( "touchcancel", touchMouseAdaptor( cancelDash ), { passive: false } )
 }
 
 function startDash( e ) {
@@ -144,4 +149,22 @@ function pause( ) {
 function unpause( ) {
   PAUSED = false
   document.querySelector( ".pausedscreen" ).style.display = "none"
+}
+
+function handleKeyPressGame( e ) {
+  if ( !PAUSED ) {
+    switch ( e.key ) {
+      case "Escape":
+        stopGame( )
+        break
+      case "r":
+        spawnPlayer( )
+        break
+      case "p":
+        pause( )
+        break
+    }
+  } else if ( e.key === "Enter" || e.key === "Escape" ) {
+    unpause( )
+  }
 }
