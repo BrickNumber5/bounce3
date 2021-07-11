@@ -28,8 +28,6 @@
      - [x] Upload
      - [x] Archive ( Download All )
    - [ ] Delete Confirmation Box
-   - [ ] Level Upload Fail Warning Indicator
-   - [ ] Archive Upload Confirmation Box
    - [x] Add Github Icon as Repo Link
    - [ ] Better README.md
    - [ ] Features Writup ( Initial Changelog Entry )
@@ -38,6 +36,9 @@
    - [ ] Editor Multitouch
    - [ ] Death by Void
    - [ ] Polygon Level Object
+   - [ ] Custom Confirmation Boxes
+   - [ ] Custom Tooltips
+   - [ ] Level Upload Fail Warning Indicator
  - [ ] Release 3.0.0
    - [ ] Space partitioning by chunks for rendering and physics speedup
    - [ ] Make trails framerate independent
